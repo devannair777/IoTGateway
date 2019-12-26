@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Horizon</title>
+</head>
+<body>
+    <!-- Navigation Bar begin -->
+    <nav class="navbar navbar-dark bg-primary">
+        <span class="navbar-brand">Mobile Computing</span>
+        <span class="navbar-text" 
+            style="color:white;font-size: x-large;margin-right: 300px;">
+            OpenVManage
+         </span>
+            <span class="navbar-text" style="margin-left: 10px;">
+               Author:Devan Premchandrakumar Nair
+            </span>
+            <span class="navbar-text">
+                Matriculation Number:1274369
+            </span>
+    </nav>
+   <!-- Navigation Bar End -->
+
+   <!--Main Dashboard Area begins -->
+   <div class="container-fluid">
+       <div class="row">
+        <!-- Left Navigation bar begin-->
+           <div class="col-md-2 sidebar">
+               <ul class="nav nav-sidebar">
+                   <li><a href="#">Dashboard</a></li>
+                   <li><a href="#">Location Map</a></li>
+                   <li><a href="#">Firmware</a></li>
+               </ul>
+           </div>
+       <!-- Left Navigation bar end -->
+        <!--Display of Left Navigation pane Choice Begins-->
+           <div class="col-md-10 main" style="margin-left: 210px">
+               <h1 class="page-header" th:text="${viewname}"></h1>
+               <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                   <div class="card-header">Location 1</div>
+                   <div class="card-body">
+                       <h5 class="card-title">Environment Parameters</h5>
+                       <p class="card-text">
+                           <h5 th:text="${temp}"></h5>
+                           <h5 th:text="${humidity}"> </h5>
+                           <h5 th:text="${luminosity}"> </h5>
+                       </p>
+                   </div>
+               </div>
+
+           </div>
+        <!--Display of Left Navigation pane Choice Ends -->
+
+       </div>
+       <!-- Outside Column Div Main Dashboard Layout Begins -->
+   </div>
+   <!--Main Dashboard Area Ends --> 
+
+</body>
+</html>
+
