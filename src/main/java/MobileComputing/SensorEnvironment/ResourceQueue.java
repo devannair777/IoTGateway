@@ -22,9 +22,9 @@ import org.slf4j.LoggerFactory;
 
 public class ResourceQueue extends CoapResource {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(ResourceQueue.class.getCanonicalName());
-    private iResGetHandler getHandler;
-    private iResPostHandler postHandler;
+    protected final Logger LOGGER = LoggerFactory.getLogger(ResourceQueue.class.getCanonicalName());
+    /*private iResGetHandler getHandler;
+    private iResPostHandler postHandler;*/
     private resourceClass resourceType = resourceClass.UD;
     private interfaceClass interfaceType = interfaceClass.UD;
     private String locationId = "locn_0";
@@ -33,24 +33,24 @@ public class ResourceQueue extends CoapResource {
     private boolean guidanceStatus = false;
     private String envParameter =   "EnvironmentData" + File.separator; ///Filename where Interface parameter representation values are stored
 
-    private Timer obsTimer;
+    /*private Timer obsTimer;
     private int updateInterval = 1000;
     private boolean isObservable = false;
     private volatile String observerResult = "";
-    private volatile String prevObserverResult = "";
+    private volatile String prevObserverResult = "";*/
 
     public ResourceQueue(String resURI) {
         super(resURI);
     }
 
-    public ResourceQueue(String resURI, boolean isObs) {
+    /*public ResourceQueue(String resURI, boolean isObs) {
         super(resURI);
         obsTimer = new Timer();
         this.isObservable = isObs;
         this.setObservable(isObs);
         this.setObserveType(CoAP.Type.CON);
         obsTimer.schedule(new ObserveTask(), 0, this.updateInterval);
-    }
+    }*/
 
     public resourceClass getresourceType() {
         return resourceType;
@@ -190,7 +190,8 @@ public class ResourceQueue extends CoapResource {
         }
         for (resourceClass r : this.interfaceType.getModVars()) {
             d = (Double.valueOf(currVal[r.getColVal()]) - (0.1 * Double.valueOf(val)));
-            res[r.getColVal()] = d.toString();
+            String t = d.toString();
+            res[r.getColVal()] = t.substring(0,4);
         }
         return String.join(",", res);
     }
@@ -213,13 +214,13 @@ public class ResourceQueue extends CoapResource {
         return false;
     }
 
-    public void setIResGetHandler(iResGetHandler igh) {
+    /*public void setIResGetHandler(iResGetHandler igh) {
         this.getHandler = igh;
-    }
+    }*/
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        if (this.getObserverCount() == 0) {//String ex = this.getHandler.handleGet();
+        /*if (this.getObserverCount() == 0)*/ {//String ex = this.getHandler.handleGet();
 
             String ex = "";
             try {
@@ -232,10 +233,10 @@ public class ResourceQueue extends CoapResource {
                 LOGGER.info(ioe.getMessage());
             }
             exchange.respond(ResponseCode.CONTENT, ex, MediaTypeRegistry.APPLICATION_JSON);
-        } else {
+        } /*else {
             exchange.setMaxAge(this.updateInterval);
             exchange.respond(observerResult);
-        }
+        }*/
     }
 
     @Override
@@ -272,17 +273,17 @@ public class ResourceQueue extends CoapResource {
 
     }
 
-    public int showNumObsRelations() {
+    /*public int showNumObsRelations() {
         String res = Integer.valueOf(this.getObserverCount()).toString();
         LOGGER.info("Number of Observers to resource : " + super.getName() + " : " + res);
         return this.getObserverCount();
-    }
+    }*/
 
-    public void setPostHandler(iResPostHandler postHandler) {
+    /*public void setPostHandler(iResPostHandler postHandler) {
         this.postHandler = postHandler;
-    }
+    }*/
 
-    private class ObserveTask extends TimerTask {
+    /*private class ObserveTask extends TimerTask {
         String currVal = "";
 
         @Override
@@ -304,5 +305,5 @@ public class ResourceQueue extends CoapResource {
             }
 
         }
-    }
+    }*/
 }

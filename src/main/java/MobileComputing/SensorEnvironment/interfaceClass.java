@@ -9,7 +9,7 @@ public enum interfaceClass {
     HumiditySensor(resourceClass.humidity),
     iRSensor(resourceClass.irSpectrum),*/
     GuidanceActuator,
-    Actuator(resourceClass.humidity, resourceClass.irSpectrum, resourceClass.temperature);
+    Actuator(resourceClass.humidity, resourceClass.flash, resourceClass.temperature);
 
     private ArrayList<resourceClass> modVars = new ArrayList<resourceClass>();
 

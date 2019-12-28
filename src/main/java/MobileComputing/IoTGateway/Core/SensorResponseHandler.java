@@ -25,7 +25,7 @@ public class SensorResponseHandler implements CoapHandler {
     @Override
     public void onLoad(CoapResponse response) {
         try {
-            LOGGER.info("Source Context :"+response.advanced().getSourceContext());
+
             String srcLoc = new StringBuilder().append(IoTGateway.getCoapScheme())
                     .append(IoTGateway.getHostname())
                     .append(response.advanced().getSourceContext().toString()
@@ -57,7 +57,8 @@ public class SensorResponseHandler implements CoapHandler {
     }
 
     @Override
-    public void onError() {
-
+    public void onError()
+    {
+        /*TODO : Timeout Handling*/
     }
 }

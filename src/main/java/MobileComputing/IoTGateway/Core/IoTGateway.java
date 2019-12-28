@@ -3,6 +3,7 @@ package MobileComputing.IoTGateway.Core;
 import MobileComputing.SensorEnvironment.ActuationCommand;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapObserveRelation;
 import org.eclipse.californium.core.WebLink;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.network.CoapEndpoint;
@@ -18,6 +19,7 @@ public class IoTGateway {
     private ArrayList<String> endPointURI;
     private ArrayList<CoapClient> coapClients;
     private ArrayList<CoapClient> coapSensors;
+    private ArrayList<CoapClient> obsSensor;
     private ArrayList<CoapClient> coapActuators;
     private ArrayList<CoapClient> coapGuidanceActuator;
     private final int clientPortNum = 62235;
@@ -41,6 +43,7 @@ public class IoTGateway {
         endpointLocation = new HashMap<>();
         coapClients = new ArrayList<>();
         coapSensors = new ArrayList<>();
+        obsSensor = new ArrayList<>();
         coapActuators = new ArrayList<>();
         coapGuidanceActuator = new ArrayList<>();
         actuatorByLocation = new HashMap<>();
@@ -152,7 +155,14 @@ public class IoTGateway {
                 client.setURI(client.getURI() + resURI);
                 //this.interfaceDescription.put(client.getURI() ,interfaceDescrptn);
                 if (interfaceDescrptn.equalsIgnoreCase("Sensor")) {
-                    this.coapSensors.add(client);
+                    if(((WebLink) links[1]).getAttributes().hasObservable())
+                    {
+                        this.obsSensor.add(client);
+                    }
+                    else
+                    {
+                        this.coapSensors.add(client);
+                    }
                     this.sensorByLocation.put(
                             client, endpointLocation.get(epUri)
                     );
@@ -209,8 +219,8 @@ public class IoTGateway {
                                     {
                                         if (param.toString().equalsIgnoreCase("temperature")) {
                                             sv.setTemperature(Double.valueOf(value.toString()));
-                                        } else if (param.toString().equalsIgnoreCase("irSpectrum")) {
-                                            sv.setLuminosity(Double.valueOf(value.toString()));
+                                        } else if (param.toString().equalsIgnoreCase("flash")) {
+                                            sv.setFlash(Double.valueOf(value.toString()));
                                         } else if (param.toString().equalsIgnoreCase("humidity")) {
                                             sv.setHumidity(Double.valueOf(value.toString()));
                                         }
@@ -273,17 +283,27 @@ public class IoTGateway {
         }*/
     }
 
+    private void initiateObserve()
+    {
+        for(CoapClient obsClient : this.obsSensor)
+        {
+            CoapObserveRelation obsRel= obsClient.observe(coapObserverHandler);
+        }
+    }
 
     public void gateWayProcess() throws InterruptedException {
         this.discoverResources();
+        this.initiateObserve();
         int time = 0;
         while (time < 9) {
             LOGGER.info("Gateway Process begins");
 
+
+
             for (CoapClient coapClient : this.coapSensors) {
                 coapClient.get(sensorResponseHandler);
                 //initiateActuation(coapClient);
-                Thread.sleep(100);
+                Thread.sleep(500);
             }
             makeActiveDecision();
             LOGGER.info("Gateway Process timestep :" + time+" Results");

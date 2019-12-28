@@ -39,7 +39,7 @@ public class CoapObserverHandler implements CoapHandler {
                 globalStates.put(locationEpCtx, temp);
             }
 
-            LOGGER.info("Notification from Sensor : " + response.getResponseText() + "\n\n");
+            LOGGER.info("Notification from Sensor : " + response.getResponseText() + "\n");
 
 
         } catch (Exception e) {
@@ -48,7 +48,9 @@ public class CoapObserverHandler implements CoapHandler {
     }
 
     @Override
-    public void onError() {
+    public void onError()
+    {
+        /*TODO : Timeout Handling*/
         LOGGER.error("CoapObserve Failed");
     }
 }

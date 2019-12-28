@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Horizon</title>
+</head>
+<body>
+
+    <div th:fragment="card" class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header" id="loc_id">Location Id</div>
+        <div class="card-body">
+            <h5 class="card-title" style="font-size: small">Environment Parameters</h5>
+            <p class="card-text">
+            <h5 style="font-size: small">Temperature :  <a style="margin-left: 36px;font-size: small" id="temp"></a></h5>
+            <h5 style="font-size: small">Humidity :  <a style="margin-left : 56px;font-size: small" id="hum"></a></h5>
+            <h5 style="font-size: small">Flash Value :  <a style="margin-left: 46px;font-size: small" id="flash"></a></h5>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

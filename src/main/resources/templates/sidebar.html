@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Horizon</title>
+</head>
+<body>
+    <!-- Left Navigation bar begin-->
+    <div th:fragment="sidenavbar" class="col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+            <li><a href="http://localhost:8080/console">Dashboard</a></li>
+            <li><a href="http://localhost:8080/map" >Location Map</a></li>
+            <li><a href="http://localhost:8080/firmware">Firmware</a></li>
+        </ul>
+    </div>
+    <!-- Left Navigation bar end -->
+</body>
+</html>

@@ -51,25 +51,27 @@ public class SpawnElements {
         return sens;
     }
 
-    public static ResourceQueue spawnObsEnabledResource(String resName, String filename, resourceClass rs) {
-        ResourceQueue rq = new ResourceQueue(resName, true);
-        rq.setEnvParameter(filename);
-        rq.setresourceType(rs);
-        rq.setObservable(true);
-        rq.getAttributes().setObservable();
-        rq.setInterfaceType(interfaceClass.Sensor);
-        rq.getAttributes().addInterfaceDescription(interfaceClass.Sensor.toString());
-        rq.getAttributes().addResourceType(rs.toString());
-        rq.getAttributes().addContentType(MediaTypeRegistry.APPLICATION_JSON);
-        //rq.getAttributes().setObservable();
-        return rq;
+    public static ObservableResourceQueue spawnObservableResource(String resName,String filename,resourceClass rs)
+    {
+        ObservableResourceQueue obsRq = new ObservableResourceQueue(resName);
+        obsRq.setEnvParameter(filename);
+        obsRq.setResourceType(rs);
+        obsRq.getAttributes().setObservable();
+        obsRq.setInterfaceType(interfaceClass.Sensor);
+        obsRq.getAttributes().addInterfaceDescription(interfaceClass.Sensor.toString());
+        obsRq.getAttributes().addResourceType(rs.toString());
+        obsRq.getAttributes().addContentType(MediaTypeRegistry.APPLICATION_JSON);
+
+        return obsRq;
+
     }
 
-    public static ResourceQueue spawnObsEnabledSensor(int portNum, ResourceQueue resQ) {
+    public static ObservableResourceQueue spawnObservableSensor(int portNum,ObservableResourceQueue obsRq)
+    {
         Interface i1 = new Interface(portNum);
-        i1.addResource(resQ);
+        i1.addResource(obsRq);
         i1.runInterface();
-        return resQ;
+        return obsRq;
     }
 
 }

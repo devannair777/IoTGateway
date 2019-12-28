@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class StateVariables {
     private double temperature;
-    private double luminosity;
+    private double flash;
     private double humidity;
 
     public StateVariables() {
@@ -18,11 +18,11 @@ public class StateVariables {
     public static boolean compareWithThreshold(StateVariables sv) {
         StateVariables threshold = new StateVariables();
         threshold.setHumidity(18);
-        threshold.setLuminosity(18);
+        threshold.setFlash(18);
         threshold.setTemperature(18);
 
         if ((sv.getHumidity() > threshold.getHumidity())
-                | (sv.getLuminosity() > threshold.getLuminosity())
+                | (sv.getFlash() > threshold.getFlash())
                 | (sv.getTemperature() > threshold.getTemperature())) {
             return false;
         } else {
@@ -34,12 +34,12 @@ public class StateVariables {
         this.temperature = temperature;
     }
 
-    public double getLuminosity() {
-        return luminosity;
+    public double getFlash() {
+        return flash;
     }
 
-    public void setLuminosity(double luminosity) {
-        this.luminosity = luminosity;
+    public void setFlash(double flash) {
+        this.flash = flash;
     }
 
     public double getHumidity() {

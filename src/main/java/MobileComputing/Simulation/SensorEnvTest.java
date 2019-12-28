@@ -19,7 +19,7 @@ public class SensorEnvTest {
         ResourceQueue tempSensor = SpawnElements.spawnSensorResource(
                 "temp", "locn_3.txt", resourceClass.temperature);
         ResourceQueue irSensor = SpawnElements.spawnSensorResource(
-                "irSense", "locn_1.txt", resourceClass.irSpectrum);
+                "irSense", "locn_1.txt", resourceClass.flash);
         ResourceQueue tempSensor2 = SpawnElements.spawnSensorResource(
                 "temp", "locn_2.txt", resourceClass.temperature);
         ResourceQueue foamExt = SpawnElements.spawnActuatorResource(
@@ -34,11 +34,11 @@ public class SensorEnvTest {
         SpawnElements.spawnActuator(5687, alarm);
 
         HashMap<Integer,String> epLocnMap = new HashMap<>();
-        epLocnMap.put(5683,"locn_3");
-        epLocnMap.put(5684,"locn_1");
-        epLocnMap.put(5685,"locn_2");
-        epLocnMap.put(5686,"locn_3");
-        epLocnMap.put(5687,"locn_3");
+        epLocnMap.put(5683,"Room 3");
+        epLocnMap.put(5684,"Room 1");
+        epLocnMap.put(5685,"Room 2");
+        epLocnMap.put(5686,"Room 3");
+        epLocnMap.put(5687,"Room 3");
 
         IoTGateway iotGateway = new IoTGateway();
         iotGateway.setEndpointLocation(epLocnMap);
@@ -50,7 +50,7 @@ public class SensorEnvTest {
         ResourceQueue tempSensor = SpawnElements.spawnSensorResource(
                 "temp", "locn_1.txt", resourceClass.temperature);
         ResourceQueue irSensor = SpawnElements.spawnSensorResource(
-                "irSense", "locn_1.txt", resourceClass.irSpectrum);
+                "irSense", "locn_1.txt", resourceClass.flash);
         ResourceQueue tempSensor2 = SpawnElements.spawnSensorResource(
                 "temp", "locn_2.txt", resourceClass.temperature);
         SpawnElements.spawnSensor(5683, tempSensor);
@@ -58,9 +58,9 @@ public class SensorEnvTest {
         SpawnElements.spawnSensor(5685, tempSensor2);
 
         HashMap<Integer,String> epLocnMap = new HashMap<>();
-        epLocnMap.put(5683,"locn_1");
-        epLocnMap.put(5684,"locn_1");
-        epLocnMap.put(5685,"locn_2");
+        epLocnMap.put(5683,"Room 1");
+        epLocnMap.put(5684,"Room 1");
+        epLocnMap.put(5685,"Room 2");
 
         IoTGateway iotGateway = new IoTGateway();
         iotGateway.setEndpointLocation(epLocnMap);
