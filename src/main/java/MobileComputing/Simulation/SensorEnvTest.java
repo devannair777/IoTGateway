@@ -3,6 +3,7 @@ package MobileComputing.Simulation;
 import MobileComputing.IoTGateway.Core.IoTGateway;
 import MobileComputing.SensorEnvironment.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.eclipse.californium.core.CoapResource;
 
 import java.util.HashMap;
 
@@ -18,14 +19,23 @@ public class SensorEnvTest {
     public static void sensorActuatorGatewayIntegrationTest() throws InterruptedException {
         ResourceQueue tempSensor = SpawnElements.spawnSensorResource(
                 "temp", "locn_3.txt", resourceClass.temperature);
+
+
         ResourceQueue irSensor = SpawnElements.spawnSensorResource(
                 "irSense", "locn_1.txt", resourceClass.flash);
+
+
         ResourceQueue tempSensor2 = SpawnElements.spawnSensorResource(
                 "temp", "locn_2.txt", resourceClass.temperature);
+
+
         ResourceQueue foamExt = SpawnElements.spawnActuatorResource(
                 "foamExt", "locn_3.txt",false);
+
+
         ResourceQueue alarm = SpawnElements.spawnActuatorResource(
                 "alarm", "locn_3.txt",true);
+
 
         SpawnElements.spawnSensor(5683, tempSensor);
         SpawnElements.spawnSensor(5684, irSensor);
@@ -42,7 +52,6 @@ public class SensorEnvTest {
 
         IoTGateway iotGateway = new IoTGateway();
         iotGateway.setEndpointLocation(epLocnMap);
-        //SpawnElements.spawnRestServer("http://localhost:8080/api", "MobileComputing.IoTGateway");
         iotGateway.gateWayProcess();
     }
 

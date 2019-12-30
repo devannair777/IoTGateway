@@ -11,7 +11,7 @@
 </head>
 <body>
     <!-- Navigation Bar begin -->
-    <div th:replace="navigationBar :: navBar"></div>
+    <div data-th-replace="navigationBar :: navBar"></div>
    <!-- Navigation Bar End -->
 
    <!--Main Dashboard Area begins -->
@@ -19,12 +19,12 @@
        <div class="row">
 
            <!-- Left Navigation bar begin-->
-           <div th:replace="sidebar :: sidenavbar"></div>
+           <div data-th-replace="sidebar :: sidenavbar"></div>
            <!-- Left Navigation bar end -->
 
         <!--Display of Left Navigation pane Choice Begins-->
-           <div class="col-md-10 main" style="margin-left: 210px">
-               <h1 class="page-header" th:text="${viewname}"></h1>
+           <div class="col-md-10 main" style="margin-left: 210px;margin-top: 60px">
+               <h1 class="page-header" data-th-text="${viewname}"></h1>
            </div>
         <!--Display of Left Navigation pane Choice Ends -->
 

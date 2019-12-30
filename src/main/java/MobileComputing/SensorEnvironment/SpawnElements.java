@@ -4,6 +4,7 @@ package MobileComputing.SensorEnvironment;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;*/
 
+import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 
 public class SpawnElements {
@@ -39,7 +40,7 @@ public class SpawnElements {
         Interface i2 = new Interface(portNum);
         i2.addResource(act);
         i2.runInterface();
-        //act.getParent().add(new CoapResource(act.getLocationId().substring(0,6)));
+        //act.getParent().add(new CoapResource("firmware"));
         return act;
     }
 
@@ -47,7 +48,7 @@ public class SpawnElements {
         Interface i1 = new Interface(portNum);
         i1.addResource(sens);
         i1.runInterface();
-        //sens.getParent().add(new CoapResource(resQ.getLocationId().substring(0,6)));
+        //sens.getParent().add(new CoapResource("firmware"));
         return sens;
     }
 

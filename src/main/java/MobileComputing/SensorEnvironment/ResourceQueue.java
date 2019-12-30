@@ -29,6 +29,7 @@ public class ResourceQueue extends CoapResource {
     private interfaceClass interfaceType = interfaceClass.UD;
     private String locationId = "locn_0";
     private int timeStep = 0;
+    //private int maxTime = 8;   ///0 - based so 1 less than number of lines in Environment file
     private boolean isGuidance = false;
     private boolean guidanceStatus = false;
     private String envParameter =   "EnvironmentData" + File.separator; ///Filename where Interface parameter representation values are stored
@@ -128,7 +129,11 @@ public class ResourceQueue extends CoapResource {
             LOGGER.error("Environment File Not found");
             LOGGER.error(fne.getMessage());
         } finally {
-            this.timeStep += 1;
+            if(this.timeStep < this.getnumLines() )
+            {
+                this.timeStep += 1;
+            }
+
             bufferedReader.close();
             LOGGER.info("Buffered Reader Closed");
 
@@ -182,16 +187,26 @@ public class ResourceQueue extends CoapResource {
         }
     }
 
+    private int getnumLines() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(this.envParameter));
+        int lines = -1;  ///To return a zero -based number of lines in file count
+        while (reader.readLine() != null) lines++;
+        reader.close();
+        return  lines;
+    }
+
     private synchronized String genVals(String[] currVal, String val) {
         String[] res = new String[4];
-        Double d;
+        Double d,dVal;
         for (int i = 0; i < currVal.length; i++) {
             res[i] = currVal[i];
         }
         for (resourceClass r : this.interfaceType.getModVars()) {
             d = (Double.valueOf(currVal[r.getColVal()]) - (0.1 * Double.valueOf(val)));
-            String t = d.toString();
-            res[r.getColVal()] = t.substring(0,4);
+            dVal = Math.floor(d * 100) / 100;
+            String t = dVal.toString();
+            //res[r.getColVal()] = t.substring(0,4);
+            res[r.getColVal()] = t;
         }
         return String.join(",", res);
     }
@@ -220,7 +235,7 @@ public class ResourceQueue extends CoapResource {
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        /*if (this.getObserverCount() == 0)*/ {//String ex = this.getHandler.handleGet();
+        /*if (this.getObserverCount() == 0) {*///String ex = this.getHandler.handleGet();
 
             String ex = "";
             try {
@@ -233,7 +248,7 @@ public class ResourceQueue extends CoapResource {
                 LOGGER.info(ioe.getMessage());
             }
             exchange.respond(ResponseCode.CONTENT, ex, MediaTypeRegistry.APPLICATION_JSON);
-        } /*else {
+       /* } else {
             exchange.setMaxAge(this.updateInterval);
             exchange.respond(observerResult);
         }*/
@@ -264,7 +279,7 @@ public class ResourceQueue extends CoapResource {
         else if((this.interfaceType.getModVars().isEmpty()) && (this.isGuidance))
         {
             this.guidanceStatus = Boolean.logicalXor(this.guidanceStatus,true);
-            exchange.respond("Status:"+this.guidanceStatus);
+            exchange.respond(ResponseCode.CONTENT,"Status:"+this.guidanceStatus,MediaTypeRegistry.APPLICATION_JSON);
             LOGGER.info("Guidance Actuator Command: "+exchange.getRequestText());
             LOGGER.info("Guidance Actuator Status: "+this.guidanceStatus);
         }

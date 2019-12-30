@@ -7,6 +7,15 @@ public class StateVariables {
     private double temperature;
     private double flash;
     private double humidity;
+    private boolean actuatorState;
+
+    public boolean isActuatorState() {
+        return actuatorState;
+    }
+
+    public void setActuatorState(boolean actuatorState) {
+        this.actuatorState = actuatorState;
+    }
 
     public StateVariables() {
     }

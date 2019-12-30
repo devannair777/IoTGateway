@@ -6,6 +6,15 @@ public class LocalStates
 {
     private String location ="";
     private StateVariables stateVariable;
+    private boolean isFire = false;
+
+    public boolean isFire() {
+        return isFire;
+    }
+
+    public void setFire(boolean fire) {
+        isFire = fire;
+    }
 
     public  LocalStates()
     {

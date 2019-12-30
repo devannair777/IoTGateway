@@ -2,6 +2,7 @@ package MobileComputing.SensorEnvironment;
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
+import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
 import java.io.BufferedReader;
@@ -75,7 +76,10 @@ public class ObservableResourceQueue extends ResourceQueue {
             LOGGER.error("Environment File Not found");
             LOGGER.error(fne.getMessage());
         } finally {
-            this.timeStep += 1;
+            if(this.timeStep < this.getnumLines() )
+            {
+                this.timeStep += 1;
+            }
             bufferedReader.close();
             LOGGER.info("Buffered Reader Closed");
 
@@ -86,8 +90,16 @@ public class ObservableResourceQueue extends ResourceQueue {
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        exchange.setMaxAge(this.updateInterval);
-        exchange.respond(observerResult);
+        exchange.setMaxAge(this.updateInterval*10);
+        exchange.respond(CoAP.ResponseCode.CONTENT,observerResult, MediaTypeRegistry.APPLICATION_JSON);
+    }
+
+    private int getnumLines() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(super.getEnvParameter()));
+        int lines = -1;  ///To return a zero -based number of lines in file count
+        while (reader.readLine() != null) lines++;
+        reader.close();
+        return  lines;
     }
 
     public int showNumObsRelations() {
@@ -101,7 +113,7 @@ public class ObservableResourceQueue extends ResourceQueue {
 
         @Override
         public void run() {
-            LOGGER.info("Inside Method run() ");
+            //LOGGER.info("Inside Method run() ");
             //String ex = "";
             try {
                 SensorState st = new SensorState();
@@ -109,8 +121,8 @@ public class ObservableResourceQueue extends ResourceQueue {
                 currVal = readSingleValue();
                 st.setValue(currVal);
                 observerResult = st.serializedState();
-                LOGGER.info("Previous Observer Result : "+prevObserverResult);
-                LOGGER.info("Observer Result : "+observerResult);
+                //LOGGER.info("Previous Observer Result : "+prevObserverResult);
+                //LOGGER.info("Observer Result : "+observerResult);
                 if (!currVal.equals(prevObserverResult)) {
                     changed();
                 }

@@ -14,6 +14,7 @@ public class ActuatorResponseHandler implements CoapHandler {
     public ActuatorResponseHandler()
     {
         actStatus = new HashMap<>();
+
     }
 
     public static HashMap<String, String> getCurrentState() {
@@ -23,10 +24,10 @@ public class ActuatorResponseHandler implements CoapHandler {
     public void onLoad(CoapResponse response)
     {
         try {
+            int portnum = response.advanced().getSourceContext().getPeerAddress().getPort();
             String srcLoc = new StringBuilder().append(IoTGateway.getCoapScheme())
                     .append(IoTGateway.getHostname())
-                    .append(response.advanced().getSourceContext().toString()
-                            .split(":")[1].split("\\)")[0])
+                    .append(portnum)
                     //.append(response.getSourceContext().toString().substring(13,17))
                     .toString();
 

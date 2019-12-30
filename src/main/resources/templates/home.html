@@ -23,7 +23,7 @@
        <!-- Left Navigation bar end -->
 
         <!--Display of Left Navigation pane Choice Begins-->
-           <div class="col-md-10 main" style="margin-left: 210px">
+           <div class="col-md-10 main" style="margin-left: 210px;margin-top: 60px">
 
                <h1 class="page-header" data-th-text="${viewname}"></h1>
 
@@ -31,7 +31,7 @@
                         <div class="col-md-3">
                            <!--Card1  begins-->
                             <div id="card1">
-                                <div  th:replace="stateCard :: card"></div>
+                                <div  data-th-replace="stateCard :: card"></div>
                             </div>
                            <!--Card1   Ends-->
                         </div>
@@ -39,7 +39,7 @@
                         <div class="col-md-3">
                            <!--Card2   begins-->
                             <div id="card2">
-                                <div  th:replace="stateCard :: card"></div>
+                                <div  data-th-replace="stateCard :: card"></div>
                             </div>
                            <!--Card2   Ends-->
                         </div>
@@ -47,14 +47,29 @@
                         <div class="col-md-3">
                            <!--Card3   begins-->
                             <div id="card3">
-                                <div  th:replace="stateCard :: card"></div>
+                                <div  data-th-replace="stateCard :: card"></div>
                             </div>
                            <!--Card  3 Ends-->
                         </div>
 
                     </div>
 
+                   <div class="row" style="margin-left: 5px;margin-top: 100px">
+                      <div id = "msgBox" class="card bg-light" style="max-width: 2000px;font-family: Arial">
+                          <div class="card-header" id="loc_id">Alert : </div>
+                          <h5>There is fire in <a id="roomName"></a> , Verify if its false positive ? </h5>
+                          <button id="b2" class="btn btn-sm" type="button" onclick="setActState()">Set</button>
+                      </div>
+                   </div>
+
+                    <div id = "alarm"class="row" style="margin-left: 5px;margin-bottom:10px">
+                        <h5 >Alarm State : <a id="alarmstate"></a></h5>
+                    </div>
+
+
            </div>
+
+
         <!--Display of Left Navigation pane Choice Ends -->
 
        </div>
@@ -63,9 +78,8 @@
    <!--Main Dashboard Area Ends --> 
 
 </body>
-
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/updateSequence.js"></script>
-
+<script src="js/isActStateEnable.js"></script>
 </html>
 

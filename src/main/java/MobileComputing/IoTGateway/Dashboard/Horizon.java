@@ -29,6 +29,7 @@ public class Horizon
                     StateVariables sv = IoTGateway.getGlobalStates().get(locn);
                     ls.setLocation(locn);
                     ls.setStateVariable(sv);
+                    ls.setFire(IoTGateway.getIsFireLocn().get(locn));
                     compileRes.add(ls);
 
                 }

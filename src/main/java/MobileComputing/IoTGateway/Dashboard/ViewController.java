@@ -25,18 +25,18 @@ public class ViewController {
         return "home";
     }
 
-    @RequestMapping(value = "/map", method = RequestMethod.GET)
+    @RequestMapping(value = "/settings", method = RequestMethod.GET)
     public String locationMap(Model model)
     {
-        model.addAttribute("viewname","Sensor Actuator Map");
+        model.addAttribute("viewname","Settings");
 
         return "map";
     }
 
-    @RequestMapping(value = "/firmware", method = RequestMethod.GET)
+    @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String firmwareDetails(Model model)
     {
-        model.addAttribute("viewname","Firmware Details");
+        model.addAttribute("viewname","About");
 
         return "firmware";
     }

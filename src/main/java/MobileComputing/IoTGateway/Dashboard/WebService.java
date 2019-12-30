@@ -1,10 +1,9 @@
 package MobileComputing.IoTGateway.Dashboard;
 
+import MobileComputing.IoTGateway.Core.IoTGateway;
 import MobileComputing.IoTGateway.Core.StateVariables;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +31,18 @@ public class WebService
         return Horizon.getStatesFromAllLocations();
     }
 
+    @PostMapping(value = "/data/isAct",consumes = MediaType.APPLICATION_XML_VALUE)
+    public void setActuationEnable(@RequestBody isAct actEnable)
+    {
+        if(actEnable.getActEnable().equalsIgnoreCase("true"))
+        {
+            IoTGateway.setIsAct(true);
+            System.out.println("IsAct variable set to : "+ IoTGateway.isIsAct());
+        }
+        else
+        {
+            IoTGateway.setIsAct(false);
+        }
+    }
 
 }

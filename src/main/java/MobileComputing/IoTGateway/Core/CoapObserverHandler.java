@@ -21,10 +21,10 @@ public class CoapObserverHandler implements CoapHandler {
     @Override
     public void onLoad(CoapResponse response) {
         try {
+            int portnum = response.advanced().getSourceContext().getPeerAddress().getPort();
             String srcLoc = new StringBuilder().append(IoTGateway.getCoapScheme())
                     .append(IoTGateway.getHostname())
-                    .append(response.advanced().getSourceContext().toString()
-                            .split(":")[1].split("\\)")[0])
+                    .append(portnum)
                     .toString();
 
             String locationEpCtx = IoTGateway.findLocnfromEpContext(srcLoc);
