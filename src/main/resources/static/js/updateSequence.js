@@ -1,4 +1,6 @@
 var count = 0;
+var fireCount = 0
+var b = 0
 function getGLobalStates()
 {
     $.ajax(
@@ -9,8 +11,45 @@ function getGLobalStates()
             dataType: "xml",
             success:function (data)
             {
-                var card_ids = ['card3','card2','card1']
-                console.log(data);
+                /*
+                js Pollfires section
+                * */
+                var k = $(data).find('globalStates').find("localStates")
+                var l = $(data).find('globalStates localStates').find("fire");
+                var location="";
+                for(var i = 0 ; i< l.length; i ++)
+                {
+                    if($(l[i]).text() == "true" && b == 0)
+                    {
+                        location = $(k[i]).find("location").text();
+                        fireCount += 1;
+                        console.log("Fire at  : "+ location)
+                        alert("Fire at  : "+ location);
+
+                    }
+                }
+                if(fireCount == 1 && b == 0)
+                {
+                    var retval = confirm("If verified as real fire,Press Ok to actuate")
+                    if(retval == true)
+                    {
+                        setActState();
+                        console.log("Successfully sent message : "+"true");
+                    }
+                    else
+                    {
+                        resetActState();
+                        console.log("Successfully sent message : "+"false");
+                    }
+                    b += 1;
+                }
+                /*
+                * */
+
+
+                var card_ids = ['card1','card2','card3'];
+                var act_card = ['act-card1','act-card2','act-card3'];
+
                 var i = 0;
                 var fireLocation = "";
 
@@ -25,28 +64,24 @@ function getGLobalStates()
                         var isFire = $(this).find("fire").text();
 
 
-
-                        if(isFire == "true" && count == 0)
-                        {
-                            fireLocation = location;
-                            $("#msgBox").show();
-                            $("#msgBox").find("#roomName").text(location);
-                            count = 1;
-
-                        }
-
-                        $("#alarm").find("#alarmstate").text(actState);
                         /*console.log(location);
                         console.log(temp);
                         console.log(flash);
                         console.log("Count : "+count);
 
                         console.log(card_ids[i]);*/
-
+                        $('#'+card_ids[i]).find('#statename').text("Environment Measurements");
                         $('#'+card_ids[i]).find('#loc_id').text(location);
                         $('#'+card_ids[i]).find('#temp').text(temp);
                         $('#'+card_ids[i]).find('#hum').text(hum);
                         $('#'+card_ids[i]).find('#flash').text(flash);
+
+                        $('#'+act_card[i]).find('#statename').text("Actuator States and Evaluation");
+                        $('#'+act_card[i]).find('#loc_id').text(location);
+                        $('#'+act_card[i]).find('#alarm').text(actState);
+                        $('#'+act_card[i]).find('#isfire').text(isFire);
+
+
 
                         i = i + 1;
                     }
@@ -54,14 +89,12 @@ function getGLobalStates()
             }
         }
     )
-
     setTimeout(getGLobalStates,500)
 }
 
 $(document).ready(function ()
     {
         count = 0;
-        $("#msgBox").hide(),
         timer = setTimeout(getGLobalStates,500);
     }
 );

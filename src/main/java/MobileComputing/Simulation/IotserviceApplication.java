@@ -14,7 +14,8 @@ public class IotserviceApplication {
         {
             ProductionEnvSetup.setEnvironment();
             SpringApplication.run(IotserviceApplication.class, args);
-            SensorEnvTest.sensorActuatorGatewayIntegrationTest();
+            SensorEnvTest.EnvSetup();
+            //SensorEnvTest.sensorActuatorGatewayIntegrationTest();
             //SensorEnvTest.SensorGatewayIntegrationTest();
         }
 

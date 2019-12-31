@@ -19,6 +19,13 @@ public class Horizon
         return sv;
     }
 
+    public static void setGatewayParameterThresholds(StateVariables sv)
+    {
+        StateVariables.setFlashThres(sv.getFlash());
+        StateVariables.setHumidityThres(sv.getHumidity());
+        StateVariables.setTempThres(sv.getTemperature());
+    }
+
     public static GlobalStates getStatesFromAllLocations()
     {
         GlobalStates globalStates = new GlobalStates();

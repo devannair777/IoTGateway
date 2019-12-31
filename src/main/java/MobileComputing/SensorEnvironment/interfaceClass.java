@@ -5,9 +5,6 @@ import java.util.ArrayList;
 public enum interfaceClass {
     UD(resourceClass.UD),
     Sensor,
-    /*TemperatureSensor(resourceClass.temperature),
-    HumiditySensor(resourceClass.humidity),
-    iRSensor(resourceClass.irSpectrum),*/
     GuidanceActuator,
     Actuator(resourceClass.humidity, resourceClass.flash, resourceClass.temperature);
 

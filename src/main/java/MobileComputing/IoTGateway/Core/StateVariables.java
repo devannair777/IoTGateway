@@ -9,6 +9,34 @@ public class StateVariables {
     private double humidity;
     private boolean actuatorState;
 
+    private static double tempThres = 18;
+    private static double flashThres = 18;
+    private static double humidityThres = 18;
+
+    public static double getTempThres() {
+        return tempThres;
+    }
+
+    public static void setTempThres(double tempThres) {
+        StateVariables.tempThres = tempThres;
+    }
+
+    public static double getFlashThres() {
+        return flashThres;
+    }
+
+    public static void setFlashThres(double flashThres) {
+        StateVariables.flashThres = flashThres;
+    }
+
+    public static double getHumidityThres() {
+        return humidityThres;
+    }
+
+    public static void setHumidityThres(double humidityThres) {
+        StateVariables.humidityThres = humidityThres;
+    }
+
     public boolean isActuatorState() {
         return actuatorState;
     }
@@ -26,9 +54,9 @@ public class StateVariables {
 
     public static boolean compareWithThreshold(StateVariables sv) {
         StateVariables threshold = new StateVariables();
-        threshold.setHumidity(18);
-        threshold.setFlash(18);
-        threshold.setTemperature(18);
+        threshold.setHumidity(humidityThres);
+        threshold.setFlash(flashThres);
+        threshold.setTemperature(tempThres);
 
         if ((sv.getHumidity() > threshold.getHumidity())
                 | (sv.getFlash() > threshold.getFlash())

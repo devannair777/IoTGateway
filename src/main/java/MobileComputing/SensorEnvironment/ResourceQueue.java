@@ -274,7 +274,7 @@ public class ResourceQueue extends CoapResource {
                 LOGGER.info(ioe.getMessage());
                 exchange.respond("Actuation Failed Check Logs");
             }
-            exchange.respond("Successful");
+            exchange.respond(ResponseCode.CONTENT,"Successful",MediaTypeRegistry.APPLICATION_JSON);
         }
         else if((this.interfaceType.getModVars().isEmpty()) && (this.isGuidance))
         {

@@ -65,7 +65,10 @@ body {
 /*
  * Main content
  */
-
+.card{
+    font-style: normal;
+    border-radius: 10px;
+}
 .main {
     padding: 20px;
 }

@@ -39,7 +39,7 @@ public class CoapObserverHandler implements CoapHandler {
                 globalStates.put(locationEpCtx, temp);
             }
 
-            LOGGER.info("Notification from Sensor : " + response.getResponseText() + "\n");
+            LOGGER.info("\nNotification from Sensor : " + response.getResponseText() + "\n");
 
 
         } catch (Exception e) {

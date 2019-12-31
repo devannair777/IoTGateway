@@ -54,18 +54,31 @@
 
                     </div>
 
-                   <div class="row" style="margin-left: 5px;margin-top: 100px">
-                      <div id = "msgBox" class="card bg-light" style="max-width: 2000px;font-family: Arial">
-                          <div class="card-header" id="loc_id">Alert : </div>
-                          <h5>There is fire in <a id="roomName"></a> , Verify if its false positive ? </h5>
-                          <button id="b2" class="btn btn-sm" type="button" onclick="setActState()">Set</button>
-                      </div>
-                   </div>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-md-3">
+                            <!--Card 1   begins-->
+                            <div id="act-card1">
+                                <div  data-th-replace="actuatorCard::alarmcard"></div>
+                            </div>
+                            <!--Card  1 Ends-->
+                        </div>
 
-                    <div id = "alarm"class="row" style="margin-left: 5px;margin-bottom:10px">
-                        <h5 >Alarm State : <a id="alarmstate"></a></h5>
+                        <div class="col-md-3">
+                            <!--Card 2   begins-->
+                            <div id="act-card2">
+                                <div  data-th-replace="actuatorCard :: alarmcard"></div>
+                            </div>
+                            <!--Card  2 Ends-->
+                        </div>
+
+                        <div class="col-md-3">
+                            <!--Card 3   begins-->
+                            <div id="act-card3">
+                                <div  data-th-replace="actuatorCard :: alarmcard"></div>
+                            </div>
+                            <!--Card  3 Ends-->
+                        </div>
                     </div>
-
 
            </div>
 
@@ -78,8 +91,8 @@
    <!--Main Dashboard Area Ends --> 
 
 </body>
-<script src="js/jquery-3.4.1.min.js"></script>
-<script src="js/updateSequence.js"></script>
-<script src="js/isActStateEnable.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/updateSequence.js"></script>
+    <script src="js/isActStateEnable.js"></script>
 </html>
 

@@ -326,13 +326,6 @@ public class IoTGateway {
                     }
             );
 
-            /*for (String uri : actuatorList) {
-                for (CoapClient client : this.coapClients) {
-                    if (uri.equals(client.getURI())) {
-                        initiateActuation(client);
-                    }
-                }
-            }*/
         }
 
         private void initiateObserve()

@@ -37,12 +37,17 @@ public class WebService
         if(actEnable.getActEnable().equalsIgnoreCase("true"))
         {
             IoTGateway.setIsAct(true);
-            System.out.println("IsAct variable set to : "+ IoTGateway.isIsAct());
         }
         else
         {
             IoTGateway.setIsAct(false);
         }
+    }
+
+    @PostMapping(value = "/data/thresholds",consumes = MediaType.APPLICATION_XML_VALUE)
+    public void setGatewayParameterThresholds(@RequestBody StateVariables sv)
+    {
+        Horizon.setGatewayParameterThresholds(sv);
     }
 
 }

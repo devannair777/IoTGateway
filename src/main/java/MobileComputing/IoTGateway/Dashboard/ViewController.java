@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.*;
 
 @Controller
 public class ViewController {
@@ -18,10 +17,6 @@ public class ViewController {
     public String dashboard(Model model)
     {
         model.addAttribute("viewname","Dashboard");
-        /*model.addAttribute("location","Location 3");
-        model.addAttribute("temp", IoTGateway.getGlobalStates().get("locn_3").getTemperature());
-        model.addAttribute("humidity", IoTGateway.getGlobalStates().get("locn_3").getHumidity());
-        model.addAttribute("luminosity", IoTGateway.getGlobalStates().get("locn_3").getLuminosity());*/
         return "home";
     }
 
@@ -29,7 +24,6 @@ public class ViewController {
     public String locationMap(Model model)
     {
         model.addAttribute("viewname","Settings");
-
         return "map";
     }
 
@@ -37,7 +31,6 @@ public class ViewController {
     public String firmwareDetails(Model model)
     {
         model.addAttribute("viewname","About");
-
         return "firmware";
     }
 }
