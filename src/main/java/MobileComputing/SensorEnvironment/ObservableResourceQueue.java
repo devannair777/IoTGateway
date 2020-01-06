@@ -81,7 +81,7 @@ public class ObservableResourceQueue extends ResourceQueue {
                 this.timeStep += 1;
             }
             bufferedReader.close();
-            LOGGER.info("Buffered Reader Closed");
+            //LOGGER.info("Buffered Reader Closed");
 
         }
         return row;

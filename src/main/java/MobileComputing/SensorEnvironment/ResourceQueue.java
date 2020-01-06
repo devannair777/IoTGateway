@@ -135,7 +135,7 @@ public class ResourceQueue extends CoapResource {
             }
 
             bufferedReader.close();
-            LOGGER.info("Buffered Reader Closed");
+           // LOGGER.info("Buffered Reader Closed");
 
         }
         return row;
@@ -224,7 +224,7 @@ public class ResourceQueue extends CoapResource {
             LOGGER.error("Environment File Not found");
         } finally {
             bufferedWriter.close();
-            LOGGER.info("Buffered Writer Closed");
+           // LOGGER.info("Buffered Writer Closed");
         }
         return false;
     }
@@ -239,7 +239,7 @@ public class ResourceQueue extends CoapResource {
 
             String ex = "";
             try {
-                LOGGER.info("Inside method handleGET");
+                //LOGGER.info("Inside method handleGET");
                 SensorState st = new SensorState();
                 st.setParameter(this.resourceType.toString());
                 st.setValue(this.readSingleValue());
@@ -274,12 +274,13 @@ public class ResourceQueue extends CoapResource {
                 LOGGER.info(ioe.getMessage());
                 exchange.respond("Actuation Failed Check Logs");
             }
-            exchange.respond(ResponseCode.CONTENT,"Successful",MediaTypeRegistry.APPLICATION_JSON);
+            ///Ideally actuator response not required,so safe to remove the response but change in the end if necessary
+            exchange.respond(ResponseCode.CHANGED,"Successful",MediaTypeRegistry.APPLICATION_JSON);
         }
         else if((this.interfaceType.getModVars().isEmpty()) && (this.isGuidance))
         {
             this.guidanceStatus = Boolean.logicalXor(this.guidanceStatus,true);
-            exchange.respond(ResponseCode.CONTENT,"Status:"+this.guidanceStatus,MediaTypeRegistry.APPLICATION_JSON);
+            exchange.respond(ResponseCode.CHANGED,"Status:"+this.guidanceStatus,MediaTypeRegistry.APPLICATION_JSON);
             LOGGER.info("Guidance Actuator Command: "+exchange.getRequestText());
             LOGGER.info("Guidance Actuator Status: "+this.guidanceStatus);
         }

@@ -13,17 +13,27 @@ public class WebService
 {
     private static String[] locnIds = new String[10];
 
+    /**
+     *
+     * @return
+     */
     @GetMapping(value = "/data/locn",produces = MediaType.APPLICATION_XML_VALUE)
     public LocationId getLocationIds()
     {
        return Horizon.getLocationIds();
     }
 
+    /**
+     *
+     * @param locn
+     * @return Returns
+     */
     @GetMapping(value = "/data/{locn}",produces = MediaType.APPLICATION_XML_VALUE)
     public StateVariables getLocationParameters(@PathVariable("locn") String locn)
     {
         return Horizon.getLocnSensorData(locn);
     }
+
 
     @GetMapping(value = "/data/globalStates",produces = MediaType.APPLICATION_XML_VALUE)
     public GlobalStates getLocationsParameters()
@@ -31,6 +41,10 @@ public class WebService
         return Horizon.getStatesFromAllLocations();
     }
 
+    /**
+     *
+     * @param actEnable
+     */
     @PostMapping(value = "/data/isAct",consumes = MediaType.APPLICATION_XML_VALUE)
     public void setActuationEnable(@RequestBody isAct actEnable)
     {

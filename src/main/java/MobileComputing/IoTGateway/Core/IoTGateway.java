@@ -239,8 +239,11 @@ public class IoTGateway {
                                                 sv.setTemperature(Double.valueOf(value.toString()));
                                             } else if (param.toString().equalsIgnoreCase("flash")) {
                                                 sv.setFlash(Double.valueOf(value.toString()));
-                                            } else if (param.toString().equalsIgnoreCase("humidity")) {
+                                            } /*else if (param.toString().equalsIgnoreCase("humidity")) {
                                                 sv.setHumidity(Double.valueOf(value.toString()));
+                                            }*/
+                                            else if (param.toString().equalsIgnoreCase("smoke")) {
+                                                sv.setSmoke(Double.valueOf(value.toString()));
                                             }
                                         }
                                 );
@@ -332,7 +335,7 @@ public class IoTGateway {
         {
             for(CoapClient obsClient : this.obsSensor)
             {
-                CoapObserveRelation obsRel= obsClient.observe(coapObserverHandler);
+                CoapObserveRelation obsRel= obsClient.observe(sensorResponseHandler);
             }
         }
 

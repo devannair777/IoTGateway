@@ -58,7 +58,7 @@ function getGLobalStates()
 
                         var location = $(this).find('location').text();
                         var temp = $(this).find('temperature').text();
-                        var hum = $(this).find('humidity').text();
+                        var hum = $(this).find('smoke').text();
                         var flash = $(this).find('flash').text();
                         var actState =  $(this).find("actuatorState").text();
                         var isFire = $(this).find("fire").text();
@@ -73,7 +73,7 @@ function getGLobalStates()
                         $('#'+card_ids[i]).find('#statename').text("Environment Measurements");
                         $('#'+card_ids[i]).find('#loc_id').text(location);
                         $('#'+card_ids[i]).find('#temp').text(temp);
-                        $('#'+card_ids[i]).find('#hum').text(hum);
+                        $('#'+card_ids[i]).find('#smoke').text(hum);
                         $('#'+card_ids[i]).find('#flash').text(flash);
 
                         $('#'+act_card[i]).find('#statename').text("Actuator States and Evaluation");
@@ -89,12 +89,13 @@ function getGLobalStates()
             }
         }
     )
-    setTimeout(getGLobalStates,500)
+    //setTimeout(getGLobalStates,500)
 }
 
 $(document).ready(function ()
     {
         count = 0;
-        timer = setTimeout(getGLobalStates,500);
+        //timer = setTimeout(getGLobalStates,500);
+        timer = setInterval(getGLobalStates,500)
     }
 );

@@ -32,7 +32,7 @@ public class ActuatorResponseHandler implements CoapHandler {
                     .toString();
 
             String locationEpCtx = IoTGateway.findLocnfromEpContext(srcLoc);
-            LOGGER.info("\nResponse From Actuator : " + response.getResponseText()+"\n");
+            //LOGGER.info("\nResponse From Actuator : " + response.getResponseText()+"\n");
             if (response.getResponseText().contains("Status"))
             {
                 String temp = response.getResponseText().split(":")[1];

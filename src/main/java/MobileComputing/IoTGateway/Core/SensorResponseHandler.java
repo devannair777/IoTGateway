@@ -46,7 +46,7 @@ public class SensorResponseHandler implements CoapHandler {
             }
 
             //LOGGER.info("Global States : "+globalStates.toString());
-            LOGGER.info("\nSource Endpoint Context : " + response.advanced().getSourceContext().toString()+"\n");
+            //LOGGER.info("\nSource Endpoint Context : " + response.advanced().getSourceContext().toString()+"\n");
             /*LOGGER.info("Response Payload Size from Sensor : " + response.advanced().getPayloadSize());
             LOGGER.info("Response Text from Sensor : " + response.getResponseText() + "\n\n");*/
 

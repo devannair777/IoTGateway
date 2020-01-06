@@ -11,7 +11,7 @@ public class ProductionEnvSetup
     public static void setEnvironment() throws IOException {
 
         String res = "";
-        String[] filenames = {"locn_1.txt","locn_2.txt","locn_3.txt"};
+        String[] filenames = {"locn_1.txt","locn_2.txt","locn_3.txt","obsv_1.txt"};
         BufferedReader bufferedReader = null;
         BufferedWriter bufferedWriter = null;
         String appDir = new File("EnvironmentData").getAbsolutePath();
