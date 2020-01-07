@@ -38,6 +38,7 @@ public class Horizon
                     ls.setLocation(locn);
                     ls.setStateVariable(sv);
                     ls.setFire(IoTGateway.getIsFireLocn().get(locn));
+                    ls.setSmokeAlert(IoTGateway.getSmokeWarn().get(locn));
                     compileRes.add(ls);
 
                 }

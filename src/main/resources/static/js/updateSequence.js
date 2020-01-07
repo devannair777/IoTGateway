@@ -1,6 +1,7 @@
 var count = 0;
-var fireCount = 0
-var b = 0
+var fireCount = 0;
+var smokeCount = 0;
+var b = 0;
 function getGLobalStates()
 {
     $.ajax(
@@ -23,7 +24,7 @@ function getGLobalStates()
                     {
                         location = $(k[i]).find("location").text();
                         fireCount += 1;
-                        console.log("Fire at  : "+ location)
+                        //console.log("Fire at  : "+ location)
                         alert("Fire at  : "+ location);
 
                     }
@@ -58,31 +59,73 @@ function getGLobalStates()
 
                         var location = $(this).find('location').text();
                         var temp = $(this).find('temperature').text();
-                        var hum = $(this).find('smoke').text();
+                        var smoke = $(this).find('smoke').text();
                         var flash = $(this).find('flash').text();
                         var actState =  $(this).find("actuatorState").text();
                         var isFire = $(this).find("fire").text();
+                        var smokeAlert = $(this).find("smokeAlert").text();
 
-
-                        /*console.log(location);
-                        console.log(temp);
-                        console.log(flash);
-                        console.log("Count : "+count);
-
-                        console.log(card_ids[i]);*/
                         $('#'+card_ids[i]).find('#statename').text("Environment Measurements");
                         $('#'+card_ids[i]).find('#loc_id').text(location);
                         $('#'+card_ids[i]).find('#temp').text(temp);
-                        $('#'+card_ids[i]).find('#smoke').text(hum);
                         $('#'+card_ids[i]).find('#flash').text(flash);
 
                         $('#'+act_card[i]).find('#statename').text("Actuator States and Evaluation");
                         $('#'+act_card[i]).find('#loc_id').text(location);
-                        $('#'+act_card[i]).find('#alarm').text(actState);
-                        $('#'+act_card[i]).find('#isfire').text(isFire);
 
 
+                        if(isFire == "true")
+                        {
+                            $('#'+card_ids[i]).find(".card-header").css("backgroundColor","#dc3545");
+                            $('#'+act_card[i]).find('#isfire').text("Yes");
+                            $('#'+act_card[i]).find('#isfire').css("color","red");
 
+                            if(smokeAlert == "true")
+                            {
+                                $('#'+card_ids[i]).find('#smoke').text("Intense");
+                                $('#'+act_card[i]).find("#smoke").css("color","red");
+                                $('#'+act_card[i]).find('#smoke').text("Yes");
+                            }
+                            else  if(smokeAlert == "false")
+                            {
+                                $('#'+card_ids[i]).find('#smoke').text("Minimal");
+                                $('#'+act_card[i]).find("#smoke").css("color","black");
+                                $('#'+act_card[i]).find('#smoke').text("No");
+                            }
+
+                        }
+                        else
+                        {
+                            $('#'+card_ids[i]).find(".card-header").css("backgroundColor","#f8f9fa");
+                            $('#'+act_card[i]).find('#isfire').text("No");
+                            $('#'+act_card[i]).find('#isfire').css("color","black");
+
+                            if(smokeAlert == "true")
+                            {
+                                $('#'+card_ids[i]).find('#smoke').text("Intense");
+                                $('#'+card_ids[i]).find(".card-header").css("backgroundColor","#ffc107");
+                                $('#'+act_card[i]).find("#smoke").css("color","red");
+                                $('#'+act_card[i]).find('#smoke').text("Yes");
+                            }
+                            else if(smokeAlert == "false")
+                            {
+                                $('#'+card_ids[i]).find('#smoke').text("Minimal");
+                                $('#'+card_ids[i]).find(".card-header").css("backgroundColor","#f8f9fa");
+                                $('#'+act_card[i]).find("#smoke").css("color","black");
+                                $('#'+act_card[i]).find('#smoke').text("No");
+                            }
+                        }
+
+                        if(actState == "true")
+                        {
+                            $('#'+act_card[i]).find('#alarm').text("Active");
+                            $('#'+act_card[i]).find('#emDoor').text("Enabled");
+                        }
+                        else
+                        {
+                            $('#'+act_card[i]).find('#alarm').text("Inactive");
+                            $('#'+act_card[i]).find('#emDoor').text("Disabled");
+                        }
                         i = i + 1;
                     }
                 )

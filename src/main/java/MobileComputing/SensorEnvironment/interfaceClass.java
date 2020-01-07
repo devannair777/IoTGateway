@@ -6,7 +6,7 @@ public enum interfaceClass {
     UD(resourceClass.UD),
     Sensor,
     GuidanceActuator,
-    Actuator(resourceClass.humidity, resourceClass.flash, resourceClass.temperature);
+    Actuator(resourceClass.flash, resourceClass.temperature,resourceClass.smoke);
 
     private ArrayList<resourceClass> modVars = new ArrayList<resourceClass>();
 

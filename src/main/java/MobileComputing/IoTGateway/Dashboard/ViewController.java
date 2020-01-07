@@ -20,17 +20,10 @@ public class ViewController {
         return "home";
     }
 
-    @RequestMapping(value = "/settings", method = RequestMethod.GET)
-    public String locationMap(Model model)
-    {
-        model.addAttribute("viewname","Settings");
-        return "map";
-    }
-
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String firmwareDetails(Model model)
     {
         model.addAttribute("viewname","About");
-        return "firmware";
+        return "about";
     }
 }

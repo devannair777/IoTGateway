@@ -12,7 +12,7 @@ public class IotserviceApplication {
     {
        try
         {
-            ProductionEnvSetup.setEnvironment();
+            ProductionEnvSetup.setEnvironment(args);
             SpringApplication.run(IotserviceApplication.class, args);
             SensorEnvTest.EnvSetup();
             //SensorEnvTest.sensorActuatorGatewayIntegrationTest();

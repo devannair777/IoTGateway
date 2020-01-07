@@ -1,7 +1,7 @@
 package MobileComputing.SensorEnvironment;
 
 public enum resourceClass {
-    UD(-1), temperature(0), flash(1), smoke(2), humidity(3);
+    UD(-1), temperature(0), flash(1), smoke(2);
 
     private int colVal;
 

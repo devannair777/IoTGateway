@@ -7,6 +7,15 @@ public class LocalStates
     private String location ="";
     private StateVariables stateVariable;
     private boolean isFire = false;
+    private boolean smokeAlert = false;
+
+    public boolean isSmokeAlert() {
+        return smokeAlert;
+    }
+
+    public void setSmokeAlert(boolean smokeAlert) {
+        this.smokeAlert = smokeAlert;
+    }
 
     public boolean isFire() {
         return isFire;

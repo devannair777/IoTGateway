@@ -19,10 +19,10 @@ public class StateVariables {
 
     private boolean actuatorState;
 
-    private static double tempThres = 18;
-    private static double flashThres = 18;
+    private static double tempThres = 58;
+    private static double flashThres = 38;
     //private static double humidityThres = 18;
-    private static double smokeThres = 4;
+    private static double smokeThres = 1;
 
     public static double getSmokeThres() {
         return smokeThres;
@@ -71,6 +71,18 @@ public class StateVariables {
         return temperature;
     }
 
+    public static boolean isSmoke(StateVariables sv)
+    {
+        if(sv.getSmoke() > smokeThres)
+        {
+            return true;
+        }
+        else
+        {
+            return  false;
+        }
+    }
+
     public static boolean compareWithThreshold(StateVariables sv) {
         StateVariables threshold = new StateVariables();
         //threshold.setHumidity(humidityThres);
@@ -78,8 +90,7 @@ public class StateVariables {
         threshold.setSmoke(smokeThres);
         threshold.setTemperature(tempThres);
 
-        if ((sv.getSmoke() > threshold.getSmoke())
-                | (sv.getFlash() > threshold.getFlash())
+        if ( (sv.getFlash() > threshold.getFlash())
                 | (sv.getTemperature() > threshold.getTemperature())) {
             return false;
         } else {

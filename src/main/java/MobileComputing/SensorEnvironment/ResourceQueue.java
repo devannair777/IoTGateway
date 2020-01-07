@@ -29,6 +29,7 @@ public class ResourceQueue extends CoapResource {
     private interfaceClass interfaceType = interfaceClass.UD;
     private String locationId = "locn_0";
     private int timeStep = 0;
+    private int smokeCount = 1;
     //private int maxTime = 8;   ///0 - based so 1 less than number of lines in Environment file
     private boolean isGuidance = false;
     private boolean guidanceStatus = false;
@@ -196,17 +197,30 @@ public class ResourceQueue extends CoapResource {
     }
 
     private synchronized String genVals(String[] currVal, String val) {
-        String[] res = new String[4];
+        String[] res = new String[3];
         Double d,dVal;
         for (int i = 0; i < currVal.length; i++) {
             res[i] = currVal[i];
         }
         for (resourceClass r : this.interfaceType.getModVars()) {
-            d = (Double.valueOf(currVal[r.getColVal()]) - (0.1 * Double.valueOf(val)));
-            dVal = Math.floor(d * 100) / 100;
-            String t = dVal.toString();
-            //res[r.getColVal()] = t.substring(0,4);
-            res[r.getColVal()] = t;
+           if(r != resourceClass.smoke)
+           {
+               d = (Double.valueOf(currVal[r.getColVal()]) - (0.5 * Double.valueOf(val)));
+               dVal = Math.floor(d * 100) / 100;
+               String t = dVal.toString();
+               res[r.getColVal()] = t;
+           }
+           else
+           {
+               if((smokeCount%10) == 0)
+               {
+               d = (Double.valueOf(currVal[r.getColVal()]) - (1* Double.valueOf(1)));
+               dVal = Math.floor(d * 10) / 10;
+               String t = dVal.toString();
+               res[r.getColVal()] = t;
+               }
+               smokeCount += 1;
+           }
         }
         return String.join(",", res);
     }

@@ -34,11 +34,9 @@ public class IoTGateway {
         private HashMap<CoapClient, String> sensorByLocation;
 
         private static HashMap<String,Boolean> isFireLocn;
+        private static HashMap<String,Boolean> smokeWarn;
 
         private SensorResponseHandler sensorResponseHandler;
-
-
-    private CoapObserverHandler coapObserverHandler;
         private ActuatorResponseHandler actuatorResponseHandler;
 
         public IoTGateway() {
@@ -54,13 +52,21 @@ public class IoTGateway {
             guidanceActuatorByLocation = new HashMap<>();
 
             isFireLocn = new HashMap<>();
+            smokeWarn = new HashMap<>();
 
             sensorResponseHandler = new SensorResponseHandler();
-            coapObserverHandler = new CoapObserverHandler();
             actuatorResponseHandler = new ActuatorResponseHandler();
 
 
         }
+
+    public static HashMap<String, Boolean> getSmokeWarn() {
+        return smokeWarn;
+    }
+
+    public static void setSmokeWarn(HashMap<String, Boolean> smokeWarn) {
+        IoTGateway.smokeWarn = smokeWarn;
+    }
 
     public static HashMap<String, Boolean> getIsFireLocn() {
         return isFireLocn;
@@ -286,6 +292,14 @@ public class IoTGateway {
                     (locn, stateVariables) ->
                     {
                         if (!StateVariables.compareWithThreshold(stateVariables)) {
+                            if(StateVariables.isSmoke(stateVariables))
+                            {
+                                smokeWarn.put(locn,true);
+                            }
+                            else
+                            {
+                                smokeWarn.put(locn,false);
+                            }
                             isFireLocn.put(locn,true);
                             ///if condn ( (numfire() < 2)& isact) | (numfire() >2 )
                             if((numFire() < 2 && isAct) | (numFire() > 2)) {
@@ -310,6 +324,14 @@ public class IoTGateway {
                         }
                         else
                         {
+                            if(StateVariables.isSmoke(stateVariables))
+                            {
+                                smokeWarn.put(locn,true);
+                            }
+                            else
+                            {
+                                smokeWarn.put(locn,false);
+                            }
                             isFireLocn.put(locn,false);
                             if((isAct)) {
                                 if(ActuatorResponseHandler.getCurrentState().get(locn) != null &&
@@ -343,10 +365,8 @@ public class IoTGateway {
             this.discoverResources();
             this.initiateObserve();
             int time = 0;
-            while (time < 45) {
+            while (time < 200) {
                 LOGGER.info("Gateway Process begins");
-
-
 
                 for (CoapClient coapClient : this.coapSensors) {
                     coapClient.get(sensorResponseHandler);
