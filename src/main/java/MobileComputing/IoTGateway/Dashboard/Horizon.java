@@ -18,14 +18,18 @@ public class Horizon
         StateVariables sv = IoTGateway.getGlobalStates().get(locn);
         return sv;
     }
+/*
 
     public static void setGatewayParameterThresholds(StateVariables sv)
     {
         StateVariables.setFlashThres(sv.getFlash());
-        /*StateVariables.setHumidityThres(sv.getHumidity());*/
+        */
+/*StateVariables.setHumidityThres(sv.getHumidity());*//*
+
         StateVariables.setTempThres(sv.getTemperature());
         StateVariables.setSmokeThres(sv.getSmoke());
     }
+*/
 
     public static GlobalStates getStatesFromAllLocations()
     {

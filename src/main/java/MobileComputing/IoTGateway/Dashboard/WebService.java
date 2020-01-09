@@ -57,11 +57,13 @@ public class WebService
             IoTGateway.setIsAct(false);
         }
     }
+/*
 
     @PostMapping(value = "/data/thresholds",consumes = MediaType.APPLICATION_XML_VALUE)
     public void setGatewayParameterThresholds(@RequestBody StateVariables sv)
     {
         Horizon.setGatewayParameterThresholds(sv);
     }
+*/
 
 }

@@ -104,7 +104,7 @@ public class ResourceQueue extends CoapResource {
     }
 
 
-    public synchronized String readSingleValue() throws IOException {
+    private synchronized String readSingleValue() throws IOException {
         BufferedReader bufferedReader = null;
         String row = "";
         String temp = "";
@@ -143,7 +143,7 @@ public class ResourceQueue extends CoapResource {
 
     }
 
-    public synchronized String tail() {
+    private synchronized String tail() {
         RandomAccessFile fileHandler = null;
         try {
             fileHandler = new RandomAccessFile(new File(this.envParameter), "r");
@@ -225,7 +225,7 @@ public class ResourceQueue extends CoapResource {
         return String.join(",", res);
     }
 
-    public synchronized boolean writeSingleValue(String val) throws IOException {
+    private synchronized boolean writeSingleValue(String val) throws IOException {
         BufferedWriter bufferedWriter = null;
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(this.envParameter, true));

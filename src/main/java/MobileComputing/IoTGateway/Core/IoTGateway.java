@@ -362,11 +362,11 @@ public class IoTGateway {
         }
 
         public void gateWayProcess() throws InterruptedException {
+            LOGGER.info("Gateway Process begins");
             this.discoverResources();
             this.initiateObserve();
             int time = 0;
             while (time < 200) {
-                LOGGER.info("Gateway Process begins");
 
                 for (CoapClient coapClient : this.coapSensors) {
                     coapClient.get(sensorResponseHandler);
