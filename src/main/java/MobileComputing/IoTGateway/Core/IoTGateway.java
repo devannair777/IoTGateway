@@ -28,6 +28,7 @@ public class IoTGateway {
         private static Map<String, String> endpointLocation;
         //private boolean isAct  ///Input from user whether actuation has to be performed
         private static boolean isAct = false;
+        private static boolean override = false;
 
         private HashMap<CoapClient, String> actuatorByLocation;
         private HashMap<CoapClient,String>  guidanceActuatorByLocation;
@@ -280,6 +281,10 @@ public class IoTGateway {
                     count ++;
                 }
             }
+            if(count >= 2)
+            {
+                override = true;
+            }
             return count;
         }
 
@@ -302,7 +307,9 @@ public class IoTGateway {
                             }
                             isFireLocn.put(locn,true);
                             ///if condn ( (numfire() < 2)& isact) | (numfire() >2 )
-                            if((numFire() < 2 && isAct) | (numFire() > 2)) {
+                            if((numFire() < 2 && isAct) | override) {
+
+
                                 getActuatorFromLocation(locn).forEach(
                                         (actuator) -> {
                                             initiateActuation(actuator);
@@ -333,7 +340,7 @@ public class IoTGateway {
                                 smokeWarn.put(locn,false);
                             }
                             isFireLocn.put(locn,false);
-                            if((isAct)) {
+                            if((isAct) | override) {
                                 if(ActuatorResponseHandler.getCurrentState().get(locn) != null &&
                                         ActuatorResponseHandler.getCurrentState().get(locn).equalsIgnoreCase("true"))
                                 {
@@ -341,7 +348,7 @@ public class IoTGateway {
                                             (guidanceActuator) -> {
                                                 LOGGER.info("Entering State to turn off guidance actuator ");
                                                 initiateGuidanceActuation(guidanceActuator);
-                                                isAct = false;
+                                                //isAct = false;
                                             }
                                     );
                                 }
@@ -362,10 +369,11 @@ public class IoTGateway {
         }
 
         public void gateWayProcess() throws InterruptedException {
-            LOGGER.info("Gateway Process begins");
+
             this.discoverResources();
             this.initiateObserve();
             int time = 0;
+            LOGGER.info("Gateway Process begins");
             while (time < 200) {
 
                 for (CoapClient coapClient : this.coapSensors) {

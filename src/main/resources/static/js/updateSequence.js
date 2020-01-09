@@ -29,9 +29,10 @@ function getGLobalStates()
 
                     }
                 }
+                var retval;
                 if(fireCount == 1 && b == 0)
                 {
-                    var retval = confirm("If verified as real fire,Press Ok to actuate")
+                    retval = confirm("If verified as real fire,Press Ok to actuate")
                     if(retval == true)
                     {
                         setActState();
@@ -43,6 +44,10 @@ function getGLobalStates()
                         console.log("Successfully sent message : "+"false");
                     }
                     b += 1;
+                }
+                else if(fireCount > 1)
+                {
+                    setActState();
                 }
                 /*
                 * */

@@ -8,7 +8,7 @@ function setActState()
             dataType: "xml",
             data:"<isAct><actEnable>" + "true" + "</actEnable></isAct>",
             success:function () {
-                console.log("Successfully Posted")
+                console.log("Successfully Posted");
                 $("#msgBox").hide();
             }
         }
@@ -25,7 +25,7 @@ function resetActState()
             dataType: "xml",
             data:"<isAct><actEnable>" + "false" + "</actEnable></isAct>",
             success:function () {
-                console.log("Successfully Posted")
+                console.log("Successfully Posted");
                 $("#msgBox").hide();
             }
         }
