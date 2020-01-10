@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Horizon</title>
+</head>
+<body>
+    <!-- Navigation Bar begin -->
+    <div data-th-replace="navigationBar :: navBar"></div>
+   <!-- Navigation Bar End -->
+
+   <!--Main Dashboard Area begins -->
+   <div class="container-fluid">
+       <div class="row">
+           <!-- Left Navigation bar begin-->
+           <div data-th-replace="sidebar :: sidenavbar"></div>
+           <!-- Left Navigation bar end -->
+        <!--Display of Left Navigation pane Choice Begins-->
+           <div class="col-md-10 main" style="margin-left: 210px;margin-top: 60px">
+               <h1 class="page-header" data-th-text="${viewname}">ViewName</h1>
+
+               <h5 style="padding-top: 20px">Author Name : Devan Premchandrakumar Nair</h5>
+               <h5>Matriculation Number : 1274369</h5>
+               <h5>Course : Information Technology WS-19/20</h5>
+               <h5>Project Name : Fire Alarm and Prevention</h5>
+
+               <!--Location 3 Card begins-->
+
+               <!--Location 3 Card Ends-->
+
+           </div>
+        <!--Display of Left Navigation pane Choice Ends -->
+
+       </div>
+       <!-- Outside Column Div Main Dashboard Layout Begins -->
+   </div>
+   <!--Main Dashboard Area Ends --> 
+
+</body>
+</html>
+

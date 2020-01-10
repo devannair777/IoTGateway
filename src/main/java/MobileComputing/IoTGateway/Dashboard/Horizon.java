@@ -2,6 +2,8 @@ package MobileComputing.IoTGateway.Dashboard;
 
 import MobileComputing.IoTGateway.Core.IoTGateway;
 import MobileComputing.IoTGateway.Core.StateVariables;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,6 +12,7 @@ import java.util.Set;
 
 public class Horizon
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Horizon.class.getCanonicalName());
     public Horizon()
     {}
 
@@ -34,20 +37,27 @@ public class Horizon
     public static GlobalStates getStatesFromAllLocations()
     {
         GlobalStates globalStates = new GlobalStates();
-        List<LocalStates> compileRes = new ArrayList<>();
-        getLocationIds().getLocationIds().forEach(
-                (locn)->{
-                    LocalStates ls = new LocalStates();
-                    StateVariables sv = IoTGateway.getGlobalStates().get(locn);
-                    ls.setLocation(locn);
-                    ls.setStateVariable(sv);
-                    ls.setFire(IoTGateway.getIsFireLocn().get(locn));
-                    ls.setSmokeAlert(IoTGateway.getSmokeWarn().get(locn));
-                    compileRes.add(ls);
+        try {
 
-                }
-        );
-        globalStates.setLocalStates(compileRes);
+            List<LocalStates> compileRes = new ArrayList<>();
+            getLocationIds().getLocationIds().forEach(
+                    (locn) -> {
+                        LocalStates ls = new LocalStates();
+                        StateVariables sv = IoTGateway.getGlobalStates().get(locn);
+                        ls.setLocation(locn);
+                        ls.setStateVariable(sv);
+                        ls.setFire(IoTGateway.getIsFireLocn().get(locn));
+                        ls.setSmokeAlert(IoTGateway.getSmokeWarn().get(locn));
+                        compileRes.add(ls);
+
+                    }
+            );
+            globalStates.setLocalStates(compileRes);
+        }
+        catch (NullPointerException npe)
+        {
+            LOGGER.error("Null Pointer Exception at Horizon.Restart project and open browser after atleast one timestep");
+        }
         return globalStates;
     }
 

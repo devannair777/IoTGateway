@@ -20,10 +20,4 @@ public class ViewController {
         return "home";
     }
 
-    @RequestMapping(value = "/about", method = RequestMethod.GET)
-    public String firmwareDetails(Model model)
-    {
-        model.addAttribute("viewname","About");
-        return "about";
-    }
 }

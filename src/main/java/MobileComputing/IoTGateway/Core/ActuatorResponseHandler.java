@@ -36,7 +36,20 @@ public class ActuatorResponseHandler implements CoapHandler {
             if (response.getResponseText().contains("Status"))
             {
                 String temp = response.getResponseText().split(":")[1];
-                actStatus.put(locationEpCtx,temp);
+                String res = "";
+                if(temp.contains("true"))
+                {
+                    res = "true";
+                }
+                else if(temp.contains("false"))
+                {
+                    res = "false";
+                }
+                else
+                {
+                    res = temp;
+                }
+                actStatus.put(locationEpCtx,res);
             }
         }
         catch (Exception e)

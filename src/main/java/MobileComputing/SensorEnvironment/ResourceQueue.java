@@ -289,12 +289,13 @@ public class ResourceQueue extends CoapResource {
                 exchange.respond("Actuation Failed Check Logs");
             }
             ///Ideally actuator response not required,so safe to remove the response but change in the end if necessary
-            exchange.respond(ResponseCode.CHANGED,"Successful",MediaTypeRegistry.APPLICATION_JSON);
+            exchange.respond(ResponseCode.CHANGED,"{\"Response\" : \"Successful\"}",MediaTypeRegistry.APPLICATION_JSON);
         }
         else if((this.interfaceType.getModVars().isEmpty()) && (this.isGuidance))
         {
             this.guidanceStatus = Boolean.logicalXor(this.guidanceStatus,true);
-            exchange.respond(ResponseCode.CHANGED,"Status:"+this.guidanceStatus,MediaTypeRegistry.APPLICATION_JSON);
+            String res = "{\"Status\" : \""+this.guidanceStatus+"\"}";
+            exchange.respond(ResponseCode.CHANGED,res,MediaTypeRegistry.APPLICATION_JSON);
             LOGGER.info("Guidance Actuator Command: "+exchange.getRequestText());
             LOGGER.info("Guidance Actuator Status: "+this.guidanceStatus);
         }

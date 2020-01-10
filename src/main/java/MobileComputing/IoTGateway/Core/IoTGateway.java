@@ -225,7 +225,7 @@ public class IoTGateway {
         private void initiateGuidanceActuation(CoapClient coapClient) {
             try {
                 coapClient.post(actuatorResponseHandler
-                        , "ToggleState", MediaTypeRegistry.APPLICATION_JSON);
+                        , "{\"Command\" : \"Toggle State\"}", MediaTypeRegistry.APPLICATION_JSON);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -374,7 +374,7 @@ public class IoTGateway {
             this.initiateObserve();
             int time = 0;
             LOGGER.info("Gateway Process begins");
-            while (time < 200) {
+            while (true) {
 
                 for (CoapClient coapClient : this.coapSensors) {
                     coapClient.get(sensorResponseHandler);
