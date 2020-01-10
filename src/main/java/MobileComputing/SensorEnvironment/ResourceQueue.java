@@ -20,39 +20,35 @@ import org.eclipse.californium.core.server.resources.ResourceAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * CoAP Resource Class for responding to gateway
+ * requests with appropriate messages and representations
+ */
 public class ResourceQueue extends CoapResource {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(ResourceQueue.class.getCanonicalName());
-    /*private iResGetHandler getHandler;
-    private iResPostHandler postHandler;*/
     private resourceClass resourceType = resourceClass.UD;
     private interfaceClass interfaceType = interfaceClass.UD;
     private String locationId = "locn_0";
     private int timeStep = 0;
     private int smokeCount = 1;
-    //private int maxTime = 8;   ///0 - based so 1 less than number of lines in Environment file
     private boolean isGuidance = false;
     private boolean guidanceStatus = false;
+    /**
+     * File in which sensor data is stored as  representation
+     * per line format
+     */
     private String envParameter =   "EnvironmentData" + File.separator; ///Filename where Interface parameter representation values are stored
 
-    /*private Timer obsTimer;
-    private int updateInterval = 1000;
-    private boolean isObservable = false;
-    private volatile String observerResult = "";
-    private volatile String prevObserverResult = "";*/
 
+    /**
+     * Creates a CoAP resource
+     * @param resURI URI under which resource resides
+     */
     public ResourceQueue(String resURI) {
         super(resURI);
     }
-
-    /*public ResourceQueue(String resURI, boolean isObs) {
-        super(resURI);
-        obsTimer = new Timer();
-        this.isObservable = isObs;
-        this.setObservable(isObs);
-        this.setObserveType(CoAP.Type.CON);
-        obsTimer.schedule(new ObserveTask(), 0, this.updateInterval);
-    }*/
 
     public resourceClass getresourceType() {
         return resourceType;
@@ -103,7 +99,12 @@ public class ResourceQueue extends CoapResource {
         LOGGER.info("Environment Parameter File for " + getLocationId() + " :: " + this.envParameter);
     }
 
-
+    /**
+     * Reads the representation of this resource from
+     * an environment file associated with this resource
+     * @return Representation of this resource
+     * @throws IOException
+     */
     private synchronized String readSingleValue() throws IOException {
         BufferedReader bufferedReader = null;
         String row = "";
@@ -143,6 +144,11 @@ public class ResourceQueue extends CoapResource {
 
     }
 
+    /**
+     * Used to find the last line of the environment file of
+     * this resource when modifying it
+     * @return the last line of the environment file
+     */
     private synchronized String tail() {
         RandomAccessFile fileHandler = null;
         try {
@@ -188,6 +194,12 @@ public class ResourceQueue extends CoapResource {
         }
     }
 
+    /**
+     * Used to calculate the number of time steps
+     * in the emulated sensor resource representation file
+     * @return The number of lines in the environment file
+     * @throws IOException
+     */
     private int getnumLines() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(this.envParameter));
         int lines = -1;  ///To return a zero -based number of lines in file count
@@ -196,6 +208,14 @@ public class ResourceQueue extends CoapResource {
         return  lines;
     }
 
+    /**
+     * Generates a sequence of representation values for an
+     * actuator resource.
+     * @param currVal Current value which has to be modified by
+     *                logic newVal = currVal - (0.5)*val
+     * @param val The value for scaling in computing logic
+     * @return Representation of resource for modification to be used by an actuator
+     */
     private synchronized String genVals(String[] currVal, String val) {
         String[] res = new String[3];
         Double d,dVal;
@@ -225,6 +245,13 @@ public class ResourceQueue extends CoapResource {
         return String.join(",", res);
     }
 
+    /**
+     * Changes representation of sensor resources ,
+     * thereby acting as an actuator emulator
+     * @param val Scaling value
+     * @return Returns true if the operation was successful, else false
+     * @throws IOException
+     */
     private synchronized boolean writeSingleValue(String val) throws IOException {
         BufferedWriter bufferedWriter = null;
         try {
@@ -247,6 +274,9 @@ public class ResourceQueue extends CoapResource {
         this.getHandler = igh;
     }*/
 
+    /*
+    CoAP GET Request Handler
+     */
     @Override
     public void handleGET(CoapExchange exchange) {
         /*if (this.getObserverCount() == 0) {*///String ex = this.getHandler.handleGet();
@@ -268,6 +298,10 @@ public class ResourceQueue extends CoapResource {
         }*/
     }
 
+
+    /*
+    CoAP POST Request Handler
+     */
     @Override
     public void handlePOST(CoapExchange exchange) {
         if (!this.interfaceType.getModVars().isEmpty() && (! this.isGuidance))
@@ -304,37 +338,4 @@ public class ResourceQueue extends CoapResource {
 
     }
 
-    /*public int showNumObsRelations() {
-        String res = Integer.valueOf(this.getObserverCount()).toString();
-        LOGGER.info("Number of Observers to resource : " + super.getName() + " : " + res);
-        return this.getObserverCount();
-    }*/
-
-    /*public void setPostHandler(iResPostHandler postHandler) {
-        this.postHandler = postHandler;
-    }*/
-
-    /*private class ObserveTask extends TimerTask {
-        String currVal = "";
-
-        @Override
-        public void run() {
-
-            //String ex = "";
-            try {
-                SensorState st = new SensorState();
-                st.setParameter(resourceType.toString());
-                currVal = readSingleValue();
-                st.setValue(currVal);
-                observerResult = st.serializedState();
-                if (!currVal.equals(prevObserverResult)) {
-                    changed();
-                }
-                prevObserverResult = currVal;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }*/
 }

@@ -6,6 +6,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Wrapper class for  compiled list of all sensor and
+ * actuator states and the state flags  of each room
+ */
 @XmlRootElement
 public class GlobalStates
 {

@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
+/**
+ * Response handler for handling messages from sensors in emulator environment asynchronously
+ */
 public class SensorResponseHandler implements CoapHandler {
     private static HashMap<String, HashMap> globalStates;
     private SensorState sensorState;
@@ -18,6 +21,11 @@ public class SensorResponseHandler implements CoapHandler {
         globalStates = new HashMap<>();
     }
 
+    /**
+     *
+     * @return Returns compiled state of responses from all sensors in the emulator environment classified
+     * on basis of location Id
+     */
     public static HashMap<String, HashMap> getCurrentState() {
         return globalStates;
     }
@@ -45,10 +53,6 @@ public class SensorResponseHandler implements CoapHandler {
                 globalStates.put(locationEpCtx, temp);
             }
 
-            //LOGGER.info("Global States : "+globalStates.toString());
-            //LOGGER.info("\nSource Endpoint Context : " + response.advanced().getSourceContext().toString()+"\n");
-            /*LOGGER.info("Response Payload Size from Sensor : " + response.advanced().getPayloadSize());
-            LOGGER.info("Response Text from Sensor : " + response.getResponseText() + "\n\n");*/
 
 
         } catch (Exception e) {

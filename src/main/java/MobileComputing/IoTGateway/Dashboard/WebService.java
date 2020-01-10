@@ -15,7 +15,7 @@ public class WebService
 
     /**
      *
-     * @return
+     * @return Returns Location Id of all rooms which the gateway is monitoring
      */
     @GetMapping(value = "/data/locn",produces = MediaType.APPLICATION_XML_VALUE)
     public LocationId getLocationIds()
@@ -25,8 +25,8 @@ public class WebService
 
     /**
      *
-     * @param locn
-     * @return Returns
+     * @param locn Loaction Id of the room
+     * @return Returns Data from all Sensors in that location
      */
     @GetMapping(value = "/data/{locn}",produces = MediaType.APPLICATION_XML_VALUE)
     public StateVariables getLocationParameters(@PathVariable("locn") String locn)
@@ -43,7 +43,7 @@ public class WebService
 
     /**
      *
-     * @param actEnable
+     * @param actEnable Enable actuation flag
      */
     @PostMapping(value = "/data/isAct",consumes = MediaType.APPLICATION_XML_VALUE)
     public void setActuationEnable(@RequestBody isAct actEnable)
@@ -57,13 +57,5 @@ public class WebService
             IoTGateway.setIsAct(false);
         }
     }
-/*
-
-    @PostMapping(value = "/data/thresholds",consumes = MediaType.APPLICATION_XML_VALUE)
-    public void setGatewayParameterThresholds(@RequestBody StateVariables sv)
-    {
-        Horizon.setGatewayParameterThresholds(sv);
-    }
-*/
 
 }

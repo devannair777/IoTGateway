@@ -9,6 +9,9 @@ import org.eclipse.californium.core.network.CoapEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Coap Server Utility class hosting a sensor or an actuator Coap resource
+ */
 public class Interface {
 
     private CoapServer coapServer;
@@ -16,6 +19,10 @@ public class Interface {
     //private static int timeStep = 0;
     private static int interfaceIdGen = 0;
     private String interfaceId = "ep_";
+    /**
+     * Designated port on which CoAP server is supposed
+     * to run:Default = 5683
+     */
     private int portNumber = 5683;
     private String hostName = "localhost";
     private String ipAddress = "";
@@ -32,12 +39,23 @@ public class Interface {
 
     }
 
+    /**
+     * Each CoAP server hosts a resource .A method to add a CoAP resource to a server
+     * instance in a fluent API manner
+     * @param coapResource CoAP  Resource which has to be added to the server
+     * @return CoAP server to which the resource was added
+     */
     public CoapServer addResource(CoapResource coapResource) {
         this.coapServer.add(coapResource);
         return this.coapServer;
     }
 
-
+    /**
+     * Start the CoAP server on the designated port.
+     * Written in a fluent API
+     * manner
+     * @return The CoAP server instance
+     */
     public boolean runInterface() {
         this.coapServer.start();
         LOGGER.info("Starting");
@@ -45,6 +63,10 @@ public class Interface {
         return true;
     }
 
+    /**
+     * Stops the  currently running CoAP server
+     * @return CoAP server instance which was stopped
+     */
     public boolean stopInterface() {
         this.coapServer.stop();
         LOGGER.info("Stopping");

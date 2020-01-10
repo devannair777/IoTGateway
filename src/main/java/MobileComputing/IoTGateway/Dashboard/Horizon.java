@@ -10,6 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *  Service for retrieving state variable and measurements from Gateway
+ */
 public class Horizon
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(Horizon.class.getCanonicalName());
@@ -21,19 +24,13 @@ public class Horizon
         StateVariables sv = IoTGateway.getGlobalStates().get(locn);
         return sv;
     }
-/*
 
-    public static void setGatewayParameterThresholds(StateVariables sv)
-    {
-        StateVariables.setFlashThres(sv.getFlash());
-        */
-/*StateVariables.setHumidityThres(sv.getHumidity());*//*
-
-        StateVariables.setTempThres(sv.getTemperature());
-        StateVariables.setSmokeThres(sv.getSmoke());
-    }
-*/
-
+    /**
+     * Method to get all data of sensors and actuator state and flags of the location across all
+     * rooms the gateway is monitoring
+     * @return Global state variable containing present states of all sensor and actuators
+     * across all rooms
+     */
     public static GlobalStates getStatesFromAllLocations()
     {
         GlobalStates globalStates = new GlobalStates();
@@ -61,6 +58,10 @@ public class Horizon
         return globalStates;
     }
 
+    /**
+     * Gets location Id's of all rooms the gateway is monitoring
+     * @return List of Location Id
+     */
     public static LocationId getLocationIds()
     {
         LocationId locnIds = new LocationId();

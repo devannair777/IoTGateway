@@ -7,9 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
+/**
+ * Response Handler for Actuator response messages
+ */
 public class ActuatorResponseHandler implements CoapHandler {
     private static HashMap<String,String> actStatus;
     private static Logger LOGGER = LoggerFactory.getLogger(ActuatorResponseHandler.class.getCanonicalName());
+
 
     public ActuatorResponseHandler()
     {
@@ -17,6 +21,10 @@ public class ActuatorResponseHandler implements CoapHandler {
 
     }
 
+    /**
+     *
+     * @return Returns the actuator's current state
+     */
     public static HashMap<String, String> getCurrentState() {
         return actStatus;
     }

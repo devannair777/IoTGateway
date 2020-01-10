@@ -4,6 +4,9 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
 
+/**
+ * Sets up the Environment and setup files for application to start successfully
+ */
 public class ProductionEnvSetup
 {
     public ProductionEnvSetup(){}

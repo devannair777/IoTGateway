@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-
+/**
+ * IoT Gateway translation definitions and operation methods
+ */
 public class IoTGateway {
 
         private static final Logger LOGGER = LoggerFactory.getLogger(IoTGateway.class.getCanonicalName());
@@ -86,6 +88,10 @@ public class IoTGateway {
         IoTGateway.isAct = isAct;
     }
 
+    /**
+     *
+     * @param epLocnMap Maps Endpoint L4 address to a location Id
+     */
     public void setEndpointLocation(HashMap<Integer,String> epLocnMap)
         {
             epLocnMap.keySet().forEach(
@@ -128,7 +134,12 @@ public class IoTGateway {
             return hostname;
         }
 
-        private List<CoapClient> getGuidanceActuatorFromLocation(String location) {
+    /**
+     *
+     * @param location Location Id frrom where guidance actuator handler has to be found
+     * @return Guidance Actuator client service
+     */
+    private List<CoapClient> getGuidanceActuatorFromLocation(String location) {
             ArrayList<CoapClient> actuatorClients = new ArrayList<CoapClient>();
             if (this.guidanceActuatorByLocation.containsValue(location)) {
                 for (CoapClient client : this.guidanceActuatorByLocation.keySet()) {
@@ -141,7 +152,12 @@ public class IoTGateway {
             return actuatorClients;
         }
 
-        private List<CoapClient> getActuatorFromLocation(String location) {
+    /**
+     *
+     * @param location Location Id frrom where actuator handler has to be found
+     * @return  Actuator client service
+     */
+    private List<CoapClient> getActuatorFromLocation(String location) {
             ArrayList<CoapClient> actuatorClients = new ArrayList<CoapClient>();
             if (this.actuatorByLocation.containsValue(location)) {
                 for (CoapClient client : this.actuatorByLocation.keySet()) {
@@ -158,7 +174,10 @@ public class IoTGateway {
             return endpointLocation.get(epCtx);
         }
 
-        private void discoverResources() {
+    /**
+     * Discovery of  resources and their attributes from  CoRE WebLink definitions
+     */
+    private void discoverResources() {
             LOGGER.info("Initiating Resource Discovery ...");
             this.coapClients.forEach((client) ->
             {
@@ -209,7 +228,11 @@ public class IoTGateway {
             });
         }
 
-        private void initiateActuation(CoapClient coapClient) {
+    /**
+     *
+     * @param coapClient Initiate actuation sequence on the given client service
+     */
+    private void initiateActuation(CoapClient coapClient) {
             try {
                 ActuationCommand command = new ActuationCommand();
                 command.setNumTimes(1);
@@ -222,7 +245,11 @@ public class IoTGateway {
             //coapClient.get(sensorObserver);
         }
 
-        private void initiateGuidanceActuation(CoapClient coapClient) {
+    /**
+     *
+     * @param coapClient Initiate actuation sequence on given guidance actuator client service
+     */
+    private void initiateGuidanceActuation(CoapClient coapClient) {
             try {
                 coapClient.post(actuatorResponseHandler
                         , "{\"Command\" : \"Toggle State\"}", MediaTypeRegistry.APPLICATION_JSON);
@@ -232,7 +259,11 @@ public class IoTGateway {
             //coapClient.get(sensorObserver);
         }
 
-        public static HashMap<String, StateVariables> getGlobalStates() {
+    /**
+     *
+     * @return Map with Location Id of room with sensor and actuator states in that room
+     */
+    public static HashMap<String, StateVariables> getGlobalStates() {
             HashMap<String, StateVariables> result = new HashMap<>();
             SensorResponseHandler.getCurrentState().forEach
                     ((locnName, hashMap) ->
@@ -288,7 +319,10 @@ public class IoTGateway {
             return count;
         }
 
-        private void makeActiveDecision() {
+    /**
+     * Logic implementing actuation commands and after determining presence of fire in a room
+     */
+    private void makeActiveDecision() {
             HashMap<String, StateVariables> currData = new HashMap<>();
             currData = IoTGateway.getGlobalStates();
             ArrayList<String> availableElements = new ArrayList<>();
@@ -368,7 +402,11 @@ public class IoTGateway {
             }
         }
 
-        public void gateWayProcess() throws InterruptedException {
+    /**
+     * Main Gateway execution method
+     * @throws InterruptedException
+     */
+    public void gateWayProcess() throws InterruptedException {
 
             this.discoverResources();
             this.initiateObserve();

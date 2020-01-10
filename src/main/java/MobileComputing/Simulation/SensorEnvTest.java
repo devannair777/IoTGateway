@@ -7,7 +7,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.HashMap;
 
 public class SensorEnvTest {
-
+    /**
+     * Creates the emulator environment
+     * @throws InterruptedException
+     */
     public static void EnvSetup() throws InterruptedException {
         HashMap<Integer,String> epLocnMap = new HashMap<>();
 
@@ -39,7 +42,10 @@ public class SensorEnvTest {
 
 
     }
-
+    /*
+    Create the emuator scenario with the room-wise separation and allocation
+    of sensors and actuators in each room
+     */
     public static void room3Setup()
     {
         ResourceQueue tempSensor = SpawnElements.spawnSensorResource(

@@ -12,10 +12,18 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Create an Observable enabled CoAP resource to model a finite state machine
+ * that sends notifications to registered clients whenever it changes its state
+ */
 public class ObservableResourceQueue extends ResourceQueue {
 
     private resourceClass resourceType = resourceClass.UD;
 
+    /**
+     * Timer to measure resource's state at periodic
+     * intervals
+      */
     private Timer obsTimer;
 
     public resourceClass getResourceType() {
@@ -25,7 +33,9 @@ public class ObservableResourceQueue extends ResourceQueue {
     public void setResourceType(resourceClass resourceType) {
         this.resourceType = resourceType;
     }
-
+    /**
+     * Sample rate at which the Resource measures its current staet representation
+     */
     private int updateInterval = 1000;
     private int timeStep = 0;
     private volatile String observerResult = "";
@@ -50,6 +60,11 @@ public class ObservableResourceQueue extends ResourceQueue {
         return super.toString();
     }
 
+    /**
+     * Read current state representation of the resource
+     * @return representation of the resource
+     * @throws IOException
+     */
     public synchronized String readSingleValue() throws IOException {
         BufferedReader bufferedReader = null;
         String row = "";
@@ -88,6 +103,9 @@ public class ObservableResourceQueue extends ResourceQueue {
 
     }
 
+    /*
+        CoAP GET Handler from Californium Repository
+     */
     @Override
     public void handleGET(CoapExchange exchange) {
         exchange.setMaxAge(this.updateInterval*10);

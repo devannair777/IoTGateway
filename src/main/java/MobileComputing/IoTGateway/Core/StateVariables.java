@@ -2,6 +2,10 @@ package MobileComputing.IoTGateway.Core;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Wrapper Class for compiling all sensor measurement and actuator state values in
+ * a particular room
+ */
 @XmlRootElement
 public class StateVariables {
     private double temperature;
@@ -21,7 +25,6 @@ public class StateVariables {
 
     private static double tempThres = 58;
     private static double flashThres = 38;
-    //private static double humidityThres = 18;
     private static double smokeThres = 1;
 
     public static double getSmokeThres() {
@@ -47,14 +50,6 @@ public class StateVariables {
     public static void setFlashThres(double flashThres) {
         StateVariables.flashThres = flashThres;
     }
-
-    /*public static double getHumidityThres() {
-        return humidityThres;
-    }
-
-    public static void setHumidityThres(double humidityThres) {
-        StateVariables.humidityThres = humidityThres;
-    }*/
 
     public boolean isActuatorState() {
         return actuatorState;
@@ -83,9 +78,15 @@ public class StateVariables {
         }
     }
 
+    /**
+     * Hard comparison of a state's sensor measurement value with
+     * threshold to determine if a room has caught fire
+     *
+     * @param sv State variable of room which you have to determine is in fire or not
+     * @return true if there is no fire in room ; else false
+     */
     public static boolean compareWithThreshold(StateVariables sv) {
         StateVariables threshold = new StateVariables();
-        //threshold.setHumidity(humidityThres);
         threshold.setFlash(flashThres);
         threshold.setSmoke(smokeThres);
         threshold.setTemperature(tempThres);
@@ -109,12 +110,4 @@ public class StateVariables {
     public void setFlash(double flash) {
         this.flash = flash;
     }
-/*
-    public double getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(double humidity) {
-        this.humidity = humidity;
-    }*/
 }

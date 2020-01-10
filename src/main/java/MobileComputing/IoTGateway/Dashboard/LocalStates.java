@@ -2,6 +2,10 @@ package MobileComputing.IoTGateway.Dashboard;
 
 import MobileComputing.IoTGateway.Core.StateVariables;
 
+/**
+ * Sensor and Actuator states and room state for one
+ * particular room
+ */
 public class LocalStates
 {
     private String location ="";

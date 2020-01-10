@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
+/**
+ * JSON Mapping class for messages sent by sensor to the gateway
+ */
 public class SensorState {
     private static ObjectMapper jsonParser;
 
@@ -20,6 +23,10 @@ public class SensorState {
                 '}';
     }
 
+    /**
+     * The resource type of sensor
+     * @return resource type of the representation of sensor
+     */
     public String getParameter() {
         return parameter;
     }
@@ -32,6 +39,10 @@ public class SensorState {
         this.value = value;
     }
 
+    /**
+     * The representation of the sensor
+     * @return The corresponding representation of the sensor resource
+     */
     public String getValue() {
         return value;
     }

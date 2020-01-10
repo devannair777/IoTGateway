@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
+/**
+ * WebMvC view controller
+ */
 @Controller
 public class ViewController {
 

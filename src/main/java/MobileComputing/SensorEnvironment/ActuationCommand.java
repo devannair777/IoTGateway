@@ -5,8 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
+/**
+ * Command sent by the gateway to start an actuator
+ */
 public class ActuationCommand {
+    /**
+     * The  rate of operation of the actuator
+     */
     private double val;
+    /**
+     * The duration for which actuation has to be done
+     */
     private int numTimes;
     private static ObjectMapper jsonParser;
 
