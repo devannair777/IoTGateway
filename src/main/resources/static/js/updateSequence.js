@@ -20,39 +20,15 @@ function getGLobalStates()
                 var location="";
                 for(var i = 0 ; i< l.length; i ++)
                 {
-                    if($(l[i]).text() == "true" && b == 0)
+                    if($(l[i]).text() == "true" && fireCount == 0)
                     {
                         location = $(k[i]).find("location").text();
                         fireCount += 1;
                         //console.log("Fire at  : "+ location)
-                        alert("Fire at  : "+ location);
+                        alert("Alert !!! Fire");
 
                     }
                 }
-                var retval;
-                if(fireCount == 1 && b == 0)
-                {
-                    retval = confirm("If verified as real fire,Press Ok to actuate")
-                    if(retval == true)
-                    {
-                        setActState();
-                        console.log("Successfully sent message : "+"true");
-                    }
-                    else
-                    {
-                        resetActState();
-                        console.log("Successfully sent message : "+"false");
-                    }
-                    b += 1;
-                }
-                else if(fireCount > 1)
-                {
-                    setActState();
-                }
-                /*
-                * */
-
-
                 var card_ids = ['card1','card2','card3'];
                 var act_card = ['act-card1','act-card2','act-card3'];
 
@@ -81,6 +57,7 @@ function getGLobalStates()
 
                         if(isFire == "true")
                         {
+                            $('#'+act_card[i]).find("#button").attr("disabled", false);
                             $('#'+card_ids[i]).find(".card-header").css("backgroundColor","#dc3545");
                             $('#'+act_card[i]).find('#isfire').text("Yes");
                             $('#'+act_card[i]).find('#isfire').css("color","red");
@@ -101,6 +78,7 @@ function getGLobalStates()
                         }
                         else
                         {
+                            $('#'+act_card[i]).find("#button").attr("disabled", true);
                             $('#'+card_ids[i]).find(".card-header").css("backgroundColor","#f8f9fa");
                             $('#'+act_card[i]).find('#isfire').text("No");
                             $('#'+act_card[i]).find('#isfire').css("color","black");
